@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>修改密保手机</title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css" >
+            body #mainDiv {
+                height: 100%;
+                width: 100%;
+            }
+
+            #headerDiv {
+                position: relative;
+                line-height: 35px;
+                width: 100%;
+                height: 50px;
+                background: url(png/title.png) no-repeat;
+                background-size: cover;
+                background-position: 50% 50%;
+            }
+            #header {
+                text-align: center;
+                padding-top: 10px;
+                margin: 0 5px 20px 5px;
+                font-family: "微软雅黑";
+                font-size: 18px;
+                color: #FFFFFF;
+            }
+
+            .element {
+                position: relative;
+                margin: 20px auto;
+                height: auto;
+                width: 95%;
+            }
+
+            .elementName {
+                position: relative;
+                float: left;
+                font-family: "微软雅黑";
+                font-size: 17px;
+                padding-top: 7px;
+                padding-bottom: 0;
+                margin: auto auto;
+                width: 115px;
+                height: 30px;
+                left: 5%;
+                text-align: center;
+                color: #0066FF;
+            }
+
+            .element .input {
+                position: relative;
+                margin: 0 auto;
+                line-height: 35px;
+                left: 1%;
+                width: 54%;
+                height: 35px;
+                font-size: 16px;
+                padding-left: 12px;
+                background: url(png/input.png) no-repeat;
+                border: none;
+                background-size: 100% 35px;
+            }
+
+            .element #getVerifyCode, #code {
+                position: relative;
+                margin: 0 auto;
+                line-height: 35px;
+                left: 1%;
+                width: 20%;
+                height: 35px;
+                font-family: "微软雅黑";
+                font-size: 16px;
+            }
+
+            .element #code {
+                background: url(png/input3.png) no-repeat;
+                background-size: 100% 35px;
+                left: -0.5%;
+            }
+
+            .element #getVerifyCode {
+                font-size: 15px;
+                left: 3%;
+                width: 30%;
+                height: 37px;
+                border: none;
+                background: url(png/button3.png) no-repeat;
+                background-size: 100% 40px;
+            }
+
+            .element #getVerifyCode:active {
+                border: none;
+                background: url(png/button4.png) no-repeat;
+                background-size: 100% 40px;
+            }
+
+            #mainDiv form #complete {
+                position: relative;
+                margin: 5px auto;
+                width: 65%;
+                padding: 5px 10px;
+                height: 40px;
+                font-family: "微软雅黑";
+                font-size: 16px;
+                border: none;
+                background: url(png/button1.png) no-repeat;
+                background-size: 100% 40px;
+            }
+
+            #mainDiv form #complete:active {
+                border: none;
+                background: url(png/button.png) no-repeat 0px -2px;
+                background-size: 100% 40px;
+                color: #FFFFFF;
+            }
+        </style>
+        <link rel=styleSheet type="text/css" href="../css/common.css" />
+        <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../js/util.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            window.onload = function() {
+                //var secPhoneNum = queryString["old_secu_phone"];
+                //judgeSecuPhone(secPhoneNum);
+                document.getElementById("user_id").value = queryString["user_id"];
+                getLocalUserinfo();
+                setHeight();
+            };
+            window.onresize = function() {
+                setHeight();
+            };
+
+            function setHeight() {
+                var eleHeight, lengh;
+                eleHeight = document.getElementById("form").offsetHeight;
+                lengh = (document.body.scrollHeight - eleHeight) / 4;
+                document.getElementById("headerDiv").style.marginBottom = lengh + "px";
+            };
+
+            function getCode() {
+                $.post("getcode", {
+                    getcode : "seccode",
+                    user_id : document.getElementById("user_id").value
+                }, function(xhr, result) {
+                    if (null == xhr) {
+                        $("#codeTip").html("发送失败，请检查你的网络是否与电视机在同一个局域网内。");
+                        $("#codeTip").css("display", "block");
+                    } else if (result == "success") {
+                        $("#codeTip").css("display", "block");
+                    }
+                });
+            }
+
+            function validateNum() {
+                var num1 = document.getElementById("newPhone").value;
+                var num2 = document.getElementById("confirmPhone").value;
+                var phoneNumReg = /^1[3|4|5|8]\d{9}$/;
+                if (phoneNumReg.test(num1)) {
+                    if (num1 == num2) {
+                        $("#validTip").css("display", "none");
+                        return true;
+                    } else {
+                        $("#validTip").html("两次输入的密保手机不一样");
+                        $("#validTip").css("display", "block");
+                        return false;
+                    }
+                } else {
+                    $("#validTip").html("请输入正确的手机号");
+                    $("#validTip").css("display", "block");
+                    return false;
+                }
+            }
+
+            function getLocalUserinfo() {
+                var xmlhttp;
+                var url;
+                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var userinfo;
+                        var error;
+                        try {
+                            userinfo = eval('(' + xmlhttp.responseText + ')');
+                            error = userinfo.error;
+                        } catch (exception) {
+                            console.log(exception);
+                        }
+
+                        if (error != null) {
+                            alert(error);
+                        } else {
+                            var secuPhoneNum = userinfo.old_secu_phone;
+                            judgeSecuPhone(secuPhoneNum);
+                        }
+                    }
+                };
+                if (window.location.search.length <= 0) {
+                    url = window.location.pathname + "?action=localizeduserinfo";
+                } else {
+                    url = window.location.pathname + window.location.search + "&action=localizeduserinfo";
+                }
+                xmlhttp.open("POST", url, true);
+                xmlhttp.send();
+            }
+
+            function judgeSecuPhone(secPhoneNum) {
+                var oldphonediv = document.getElementById("oldphonediv");
+                var oldphone = document.getElementById("oldPhone");
+                var verifyCode = document.getElementById("verifyCode");
+                var phoneNumReg = /^[1][3-5|8][0-9]{9}$/;
+                if (phoneNumReg.test(secPhoneNum)) {
+                    oldphonediv.style.display = "block";
+                    verifyCode.style.display = "block";
+                    oldphone.value = secPhoneNum;
+                } else {
+                    oldphonediv.style.display = "none";
+                    verifyCode.style.display = "none";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="mainDiv">
+            <div id="headerDiv">
+                <p id="header">
+                    修改密保手机
+                </p>
+            </div>
+            <form action="modifysecphone" method="post" onsubmit="return validateNum()" id="form" target="result">
+                <div id="oldphonediv" class="element" style="display:none;">
+                    <p class="elementName">
+                        旧密保手机:
+                    </p>
+                    <input type="text" maxlength="11" id="oldPhone" disabled="disabled" class="input" style="background:url('png/input_disable.png') no-repeat;background-size: 100% 35px;"/>
+                </div>
+                <div id="verifyCode" class="element" style="display:none;">
+                    <p class="elementName">
+                        验&emsp; 证&emsp; 码:
+                    </p>
+                    <input type="text" id="code" name="code" class="input"/>
+                    <button type="button" id="getVerifyCode" onclick="getCode()">
+                        获取验证码
+                    </button>
+                    <p id="codeTip" class="tips">
+                        验证码发送成功，若1分钟后还没发送到您手机，您可以再次获取。
+                    </p>
+                </div>
+                <div class="element">
+                    <p class="elementName">
+                        新密保手机:
+                    </p>
+                    <input type="number" maxlength="11" id="newPhone" name="newphonenum" class="input"/>
+                </div>
+                <div class="element">
+                    <p class="elementName">
+                        确认密保手机:
+                    </p>
+                    <input type="number" maxlength="11" id="confirmPhone" name="newphonenumc" class="input"/>
+                </div>
+                <p id="validTip" class="tips">
+                    tips
+                </p>
+                <input type="hidden" id="user_id" name="user_id" value=""/>
+
+                <button type="submit" id="complete" >
+                    完&emsp;&emsp; 成
+                </button>
+
+            </form>
+
+            <div>
+                <iframe frameborder="0" name="result" style="width:80%">
+
+                </iframe>
+            </div>
+        </div>
+    </body>
+</html>

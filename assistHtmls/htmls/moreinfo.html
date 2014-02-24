@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>详细信息编辑</title>
+		<meta charset="utf-8">
+		<meta name="viewport"
+		content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			body #mainDiv {
+				height: 100%;
+				width: 100%;
+			}
+
+			#headerDiv {
+				position: relative;
+				line-height: 35px;
+				width: 100%;
+				height: 50px;
+				background: url(png/title.png) no-repeat;
+				background-size: cover;
+				background-position: 50% 50%;
+			}
+			#header {
+				text-align: center;
+				padding-top: 10px;
+				margin: 0 5px 20px 5px;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				color: #FFFFFF;
+			}
+
+			.element {
+				position: relative;
+				margin: 20px auto;
+				height: 30px;
+				width: 90%;
+			}
+
+			.elementName {
+				position: relative;
+				float: left;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				padding-top: 7px;
+				padding-bottom: 0;
+				margin: auto auto;
+				width: 90px;
+				height: 30px;
+				left: 2%;
+				text-align: center;
+				color: #0066FF;
+			}
+
+			.element .input {
+				position: relative;
+				margin: 0 auto;
+				line-height: 30px;
+				left: 5px;
+				width: 55%;
+				height: 30px;
+				font-size: 16px;
+				padding-left: 10px;
+				background: url(../png/input.png) no-repeat;
+				border: none;
+				background-size: 100% 30px;
+			}
+
+			#mainDiv form #submit {
+				position: relative;
+				margin: 5px auto;
+				width: 55%;
+				padding: 5px 10px;
+				height: 40px;
+				font-family: "微软雅黑";
+				font-size: 16px;
+				border: none;
+				background: url(png/button1.png) no-repeat;
+				background-size: 100% 40px;
+			}
+
+			#mainDiv form #submit:active {
+				border: none;
+				background: url(png/button.png) no-repeat 0px -2px;
+				background-size: 100% 40px;
+				color: #FFFFFF;
+			}
+			@media screen and (min-width: 500px) {
+				.element {
+					position: relative;
+					margin: 10px 10px;
+					height: 30px;
+					width: 45%;
+					float: left;
+				}
+
+				.elementName {
+					position: relative;
+					float: left;
+					font-family: "微软雅黑";
+					font-size: 18px;
+					padding-top: 5px;
+					padding-bottom: 0;
+					margin: auto auto;
+					width: 90px;
+					height: 30px;
+					left: 2%;
+					text-align: center;
+					color: #0066FF;
+				}
+
+				.element .input {
+					position: relative;
+					margin: 0 auto;
+					line-height: 25px;
+					left: -1%;
+					width: 55%;
+					height: 100%;
+					font-size: 14px;
+					background: url(png/input.png) no-repeat;
+					border: none;
+					background-size: 100% 25px;
+					background-position: 50%;
+				}
+			}
+		</style>
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
+		<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="../js/util.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			window.onload = function() {
+				document.getElementById("user_id").value = queryString["user_id"];
+
+				loadUserInfo();
+			};
+
+			window.onpageshow = function(event) {
+				if (event.persisted) {
+					window.location.reload();
+				}
+			};
+
+			var isEmailValid = true;
+			var isQQValid = true;
+			var isBirValid = true;
+			
+			function loadUserInfo() {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp = new XMLHttpRequest();
+				} else {// code for IE6, IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						var userinfo = eval('(' + xmlhttp.responseText + ')');
+						var error = userinfo.error;
+						if (error != null) {
+							alert(error);
+						} else {
+							document.getElementById("realname").value = userinfo.realName == null ? "" : userinfo.realName;
+							document.getElementById("birthday").value = userinfo.birthday == null ? "" : userinfo.birthday;
+							document.getElementById("email").value = userinfo.email == null ? "" : userinfo.email;
+							document.getElementById("QQ").value = userinfo.qq == null ? "" : userinfo.qq;
+							document.getElementById("wechat").value = userinfo.weibo == null ? "" : userinfo.wechat;
+							document.getElementById("weibo").value = userinfo.weibo == null ? "" : userinfo.weibo;
+							document.getElementById("location").value = userinfo.location == null ? "" : userinfo.location;
+							document.getElementById("blood").value = userinfo.bloodType == null ? "" : userinfo.bloodType;
+							document.getElementById("school").value = userinfo.university == null ? "" : userinfo.university;
+							document.getElementById("specialty").value = userinfo.major == null ? "" : userinfo.major;
+							document.getElementById("constellation").value = userinfo.sign == null ? "" : userinfo.sign;
+							document.getElementById("zodiac").value = userinfo.chineseZodiac == null ? "" : userinfo.chineseZodiac;
+						}
+
+					}
+				};
+				if (window.location.search.length <= 0) {
+					url = window.location.pathname + "?action=localizeduserinfo";
+				} else {
+					url = window.location.pathname + window.location.search + "&action=localizeduserinfo";
+				}
+				xmlhttp.open("POST", url, true);
+				xmlhttp.send();
+			}
+
+			function didEndInput(e) {
+				if ("email" == e.id) {
+					var email = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+					if (e.value.length > 0 && !email.test(e.value)) {
+						isEmailValid = false;
+						document.getElementById("emailTip").style.display = "block";
+					} else {
+						isEmailValid = true;
+						document.getElementById("emailTip").style.display = "none";
+					}
+				} else if ("QQ" == e.id) {
+					var qq = /^\d+$/;
+					if (e.value.length > 0 && !qq.test(e.value)) {
+						isQQValid = false;
+						document.getElementById("qqTip").style.display = "block";
+					} else {
+						isQQValid = true;
+						document.getElementById("qqTip").style.display = "none";
+					}
+				} else if ("birthday" == e.id) {
+					var date = /^((?!0000)[0-9]{4}-((0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-8])|(0[13-9]|1[0-2])-(29|30)|(0[13578]|1[02])-31)|([0-9]{2}(0[48]|[2468][048]|[13579][26])|(0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+					if (e.value.length > 0 && !date.test(e.value)) {
+						document.getElementById("birthdayTip").style.display = "block";
+						isBirValid = false;
+					} else {
+						isBirValid = true;
+						document.getElementById("birthdayTip").style.display = "none";
+					}
+				}
+			}
+
+			function complete_submit() {
+				if (!isEmailValid || !isQQValid || !isBirValid)
+					return;
+				$.post("infomore", {
+					realname : $("#realname").val(),
+					birthday : $("#birthday").val(),
+					email : $("#email").val(),
+					QQ : $("#QQ").val(),
+					weibo : $("#weibo").val(),
+					wechat : $("#wechat").val(),
+					location : $("#location").val(),
+					blood : $("#blood").val(),
+					school : $("#school").val(),
+					specialty : $("#specialty").val(),
+					constellation : $("#constellation").val(),
+					zodiac : $("#zodiac").val(),
+					user_id : $("#user_id").val()
+				}).always(function(data) {
+					if (null == data) {
+						alert("请求发送失败，请检查你的网络是否正常。");
+					}
+					var iframe = document.getElementById("result");
+					var doc = iframe.document;
+					if (iframe.contentDocument)
+						doc = iframe.contentDocument;
+					// For NS6
+					else if (iframe.contentWindow)
+						doc = iframe.contentWindow.document;
+					// For IE5.5 and IE6
+
+					doc.open();
+					doc.writeln(data);
+					doc.close();
+				});
+			}
+		</script>
+
+	</head>
+	<body>
+		<div id="mainDiv" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+			<div id="headerDiv">
+				<p id="header">
+					详细信息编辑
+				</p>
+			</div>
+			<form action="infomore" method="post" autocomplete="off" onsubmit="return false;" target="result">
+				<div class="element">
+					<p class="elementName">
+						真实姓名:
+					</p>
+					<span>
+						<input type="text" id="realname" name="realname" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						生&emsp;&nbsp;&nbsp; 日:
+					</p>
+					<span>
+						<input type="date" id="birthday" name="birthday" onchange="didEndInput(this)" class="input"/>
+						<p id="birthdayTip" class="tips" style="display:none;">
+							请输入有效的日期(格式"yyyy-MM-dd")
+						</p> </span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						邮&emsp;&nbsp;&nbsp; 箱:
+					</p>
+					<span>
+						<input type="email" id="email" name="email" class="input" onblur="didEndInput(this)"/>
+						<p id="emailTip" class="tips">
+							您输入的邮箱有误
+						</p> </span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						Q&nbsp; Q:
+					</p>
+					<span>
+						<input type="tel" id="QQ" name="QQ" class="input" oninput="return didEndInput(this)"/>
+						<p id="qqTip" class="tips">
+							您输入的QQ有误
+						</p> </span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						微博账号:
+					</p>
+					<span>
+						<input type="text" id="weibo" name="weibo" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						微&emsp;&nbsp;&nbsp; 信:
+					</p>
+					<span>
+						<input type="text" id="wechat" name="wechat" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						现所在地:
+					</p>
+					<span>
+						<input type="text" id="location" name="location" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						血&emsp;&nbsp;&nbsp; 型:
+					</p>
+					<span> <!-- <input type="text" id="blood" name="blood" class="input"/> -->
+						<select id="blood" name="blood" class="input">
+							<option></option>
+							<option>A</option>
+							<option>B</option>
+							<option>AB</option>
+							<option>O</option>
+						</select> </span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						毕业学校:
+					</p>
+					<span>
+						<input type="text" id="school" name="school" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						专&emsp;&nbsp;&nbsp; 业:
+					</p>
+					<span>
+						<input type="text" id="specialty" name="specialty" class="input"/>
+					</span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						星&emsp;&nbsp;&nbsp; 座:
+					</p>
+					<span> <!-- <input type="text" id="constellation" name="constellation" class="input"/> -->
+						<select id="constellation" name="constellation" class="input">
+							<option></option>
+							<option>白羊座</option>
+							<option>金牛座</option>
+							<option>双子座</option>
+							<option>巨蟹座</option>
+							<option>狮子座</option>
+							<option>处女座</option>
+							<option>天秤座</option>
+							<option>天蝎座</option>
+							<option>人马座</option>
+							<option>摩羯座</option>
+							<option>水瓶座</option>
+							<option>双鱼座</option>
+						</select> </span>
+				</div>
+				<div class="element">
+					<p class="elementName">
+						属&emsp;&nbsp;&nbsp; 相:
+					</p>
+					<span> <!-- <input type="text" id="zodiac" name="zodiac" class="input"/> -->
+						<select id="zodiac" name="zodiac" class="input">
+							<option></option>
+							<option>鼠</option>
+							<option>牛</option>
+							<option>虎</option>
+							<option>兔</option>
+							<option>龙</option>
+							<option>蛇</option>
+							<option>马</option>
+							<option>羊</option>
+							<option>猴</option>
+							<option>鸡</option>
+							<option>狗</option>
+							<option>猪</option>
+						</select> </span>
+				</div>
+
+				<input type="hidden" id="user_id" name="user_id" />
+
+				<p id="atip" class="tips" style="display:block;">
+
+				</p>
+				<button id="submit" onclick="complete_submit()">
+					完&emsp;&emsp; 成
+				</button>
+			</form>
+
+			<div>
+				<iframe frameborder="0" id="result" name="result" style="width:80%;display:none;">
+
+				</iframe>
+			</div>
+		</div>
+	</body>
+</html>

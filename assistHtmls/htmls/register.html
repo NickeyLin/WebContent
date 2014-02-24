@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>注册</title>
+		<meta charset="utf-8">
+		<meta name="viewport"
+		content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="../css/jquery.mobile-1.4.1.css" />
+		<link rel="stylesheet" href="../css/jquery.mobile.theme-1.4.1.css" />
+		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/jquery.mobile-1.4.1.js"></script>
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
+		<script src="../js/login.js"></script>
+		<style type="text/css" >
+
+			.elementName {
+				float: left;
+				font-family: "微软雅黑";
+				font-size: 17px;
+				padding-top: 7px;
+				padding-bottom: 0;
+				margin: auto auto;
+				text-align: justify;
+				width: 80px;
+				height: 30px;
+				left: 5%;
+				text-align: center;
+				color: #0066FF;
+			}
+		</style>
+	</head>
+	<body>
+		<div data-role="page" id="pageregister">
+			<div id="headerDiv" data-role="header" data-theme="f">
+				<a data-role="button" href="login.html" data-theme="e" data-icon="home" data-mini="true" data-transition="slide" data-direction="reverse">登录</a>
+				<h1> 注 册 </h1>
+			</div>
+			<div data-role="content" id="content">
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						<label class="elementName"> 帐  &emsp;  号: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<img src="../png/icon1.png" class="icon" id="icon1" />
+							<input type="text" data-role="none" maxlength="40" placeholder="输入至少4位的用户名" id="username" name="username" class="input" onchange="didEndInputUsername(this)" autocorrect="off" autocapitalize="off"/>
+						</div>
+					</div>
+				</div>
+				<div id="verifyCode">
+					<div class="ui-grid-c" >
+						<div class="ui-block-a">
+							<label class="elementName"> 验  证  码: </label>
+						</div>
+						<div class="ui-block-b">
+							<div class="bgd_input short">
+								<img src="../png/icon_code.png" class="icon" id="icon_code" style="height: 20px;padding-bottom: 6px;vertical-align: middle;"/>
+								<input type="tel" maxlength="6" placeholder="验证码" data-role="none" id="code" name="code" class="input" style="width:70%;"/>
+							</div>
+						</div>
+						<div class="ui-block-c">
+							<button data-role="none" class="button shortbtn" data-inline="true" data-mini="true" id="getVerifyCode" onclick="getCode()">
+								获取验证码
+							</button>
+						</div>
+					</div>
+					<div>
+						<i id="codeTip" class="tips"> 验证码发送成功，若1分钟后还没发送到您手机，您可以再次获取。 </i>
+					</div>
+				</div>
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						<label class="elementName"> 密 &emsp; 码: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<img src="../png/icon2.png" class="icon" id="icon2" />
+							<input type="password" data-role="none" placeholder="输入至少6位的密码" maxlength="20" id="password" name="password" class="input" onchange="didEndInput()"/>
+						</div>
+					</div>
+				</div>
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						<label class="elementName"> 确认密码: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<img src="../png/icon2.png" class="icon" id="icon2c" />
+							<input type="password" data-role="none" placeholder="再次输入密码" maxlength="20" id="passwordc" name="passwordc" class="input" onchange="didEndInput()"/>
+						</div>
+					</div>
+				</div>
+				<p id="tip" class="tips">
+					您两次输入的密码不一样
+				</p>
+				<div style="text-align:center;margin-top:25px;">
+					<button id="complete" data-role="none" class="button longbtn" onclick="complete_submit()">
+						注&emsp;&emsp; 册
+					</button>
+				</div>
+
+			</div>
+
+			<div>
+				<iframe frameborder="0" id="result" name="result" style="width:80%;display:none;">
+
+				</iframe>
+			</div>
+		</div>
+	</body>
+</html>

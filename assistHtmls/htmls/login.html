@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>登录</title>
+		<meta charset="utf-8">
+		<meta name="viewport"
+		content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<link rel="stylesheet" href="../css/jquery.mobile-1.4.1.css" />
+		<link rel="stylesheet" href="../css/jquery.mobile.theme-1.4.1.css" />
+		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/jquery.mobile-1.4.1.js"></script>
+		<script src="../js/login.js"></script>
+		<style type="text/css">
+			.element {
+				position: relative;
+				margin: 20px 0;
+				height: 30px;
+				width: 90%;
+			}
+
+			.elementName {
+				float: left;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				padding-top: 7px;
+				padding-bottom: 0;
+				margin: auto auto;
+				width: 80px;
+				height: 30px;
+				left: 2%;
+				text-align: center;
+				color: #0066FF;
+			}
+
+
+						
+		</style>
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
+	</head>
+	<body>
+		<div data-role="page" id="pagelogin">
+			<div data-role="header" id="headerDiv" data-theme="f">
+				<h1> 登 录 </h1>
+			</div>
+			<div data-role="content" id="content">
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						<label for="username" class="elementName"> 用  户  名: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<img src="../png/icon1.png" class="icon" id="icon1" />
+							<input type="text" data-role="none" placeholder="输入至少4位的用户名" id="username" name="username" class="input" autocorrect="off" autocapitalize="off"/>
+						</div>
+					</div>
+				</div>
+				<div class="ui-grid-b">
+					<div class="ui-block-a">
+						<label for="password" class="elementName"> 密      码: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<img src="../png/icon2.png" class="icon" id="icon2" />
+							<input type="password" data-role="none" placeholder="输入至少6位的密码" id="password" name="password" class="input"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-a" style="margin-top:10px;">
+					<div class="ui-block-a">
+						<button id="submit"  data-role="none" class="button midbtn checked" onclick="login_submit()">
+							登&emsp; 录
+						</button>
+					</div>
+					<div class="ui-block-b">
+						<a data-role="button" data-theme="f" data-shadow="false" class="ui-btn-inline" href="register.html"  id="toRegister" data-inline="true" data-mini="true" data-transition="slide">注&emsp; 册 </a>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<iframe frameborder="0" id="result" name="result" style="width:80%;display:none;">
+
+				</iframe>
+			</div>
+
+		</div>
+	</body>
+</html>

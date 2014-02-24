@@ -1,0 +1,210 @@
+body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, p, pre, table, caption, th, td, form, input, button, select, textarea {
+	margin: 0;
+	padding: 0;
+	font-style: normal;
+	font: 12px/22px "微软雅黑", Arial, Helvetica, sans-serif;
+}
+ol, ul, li {
+	list-style: none;
+}
+
+img {
+	border: 0;
+}
+
+body {
+	color: #000;
+	background: #FFF;
+	text-align: center;
+}
+
+.clear {
+	clear: both;
+	height: 1px;
+	width: 100%;
+	overflow: hidden;
+	margin-top: -1px;
+}
+.bgd_input .input {
+	line-height: 35px;
+	width: 88%;
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+}
+
+.bgd_input {
+	width: 90%;
+	margin: auto;
+	background: url(../png/input.png) no-repeat;
+	background-size: 100% 35px;
+}
+.bgd_input.short {
+	width: 83%;
+	margin: auto;
+	background: url(../png/input1.png) no-repeat;
+	background-size: 100% 35px;
+}
+.icon {
+	width: 16px;
+	height: 18px;
+	margin-left: 4px;
+}
+
+*:focus {
+	outline: none;
+}
+
+button {
+	background-color: transparent;
+}
+.tips {
+	color: red;
+	font-size: 10px;
+	display: none;
+	text-align: center;
+	width: 80%;
+	margin: auto;
+}
+
+/*Buttons*/
+.button {
+	position: relative;
+	padding: 5px 10px;
+	height: 40px;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background-repeat: no-repeat;
+	background-size: 100% 40px;
+}
+.button.shortbtn {
+	font-weight: normal;
+	font-size: 14px;
+	width: 100px;
+	background-color: transparent;
+	background-image: url(../png/button3.png);
+}
+
+.button.shortbtn:active {
+	background-image: url(../png/button4.png);
+	color: #444444;
+}
+
+.button.midbtn {
+	margin: 10px 5%;
+	width: 70%;
+	background-color: transparent;
+	background-image: url(../png/button_normal.png);
+}
+.button.midbtn:active {
+	background-image: url(../png/button_pressed.png);
+	color: #444444;
+}
+.button.midbtn.checked {
+	color: white;
+	margin: 10px 5%;
+	width: 70%;
+	background-color: transparent;
+	background-image: url(../png/button_highlight.png);
+}
+
+.button.midbtn.checked:active {
+	background-image: url(../png/button_pressed.png);
+	color: #444444;
+}
+.button.longbtn {
+	margin: 10px auto;
+	width: 70%;
+	background-color: transparent;
+	background-image: url(../png/button1.png);
+}
+.button.longbtn.checked {
+	color: white;
+	margin: 10px auto;
+	width: 70%;
+	background-color: transparent;
+	background-image: url(../png/button.png);
+}
+.button.longbtn:active {
+	background-image: url(../png/button.png);
+	color: #ffffff;
+}
+
+/* jQuery Mobile theme*/
+.ui-header .ui-title {
+	font-weight: lighter;
+	font-size: 1.4em;
+	text-shadow: 0 0px 0 #f3f3f3;
+}
+/*E----------------------------------------------*/
+.ui-btn-e {
+	text-shadow:0 0 0 !important;
+	border: none;
+	color: #ffffff !important;
+	background-color: transparent !important;
+	font-weight:lighter !important;
+}
+
+/*F----------------------------------------------*/
+.ui-bar-f {
+	color: white;
+	background: url(../png/title.png) no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+}
+.ui-body-f {
+	font-weight: bold;
+	color: purple;
+}
+
+.ui-btn-f {
+	position: relative;
+	padding: 5px 10px;
+	/*height: 30px;*/
+	font-family: "微软雅黑";
+	font-size: 16px;
+	margin: 10px 5%;
+	width: 70%;
+	background-color: white;
+	background: url(../png/button_normal.png) no-repeat;
+	background-size: 100% 40px;
+	line-height: 30px;
+}
+a.ui-btn-f {
+	width: 60%;
+}
+.ui-btn-f:active {
+	background-image: url(../png/button4.png);
+	color: #444444;
+}
+
+.ui-mobile label {
+	font-size: 18px;
+	text-align: right;
+	margin: auto;
+}
+
+/*网格-------------------------------------------*/
+/*ui-grid-a 2列, 50% 50%
+  ui-grid-b 2列, 25% 75%
+  ui-grid-C 3列, 25% 37% 37%*/
+.ui-grid-a, .ui-grid-b, .ui-grid-c {
+	margin-top: 10px;
+}
+.ui-grid-b .ui-block-a, .ui-grid-c .ui-block-a {
+	width: 25%;
+}
+
+.ui-grid-b .ui-block-b {
+	width: 75%;
+}
+
+.ui-grid-c .ui-block-b, .ui-grid-c .ui-block-c{
+	width: 37%;
+}
+
+.ui-block-a, .ui-block-b, .ui-block-c {
+	text-align: center;
+}

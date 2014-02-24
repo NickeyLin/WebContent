@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+		content="width=device-width, initial-scale=0.7, minimum-scale=0.7, maximum-scale=0.7, user-scalable=yes" />
+		<title>首页</title>
+		<link href="css/phonehome.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/phone.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var head1 = document.getElementById('hb1');
+				var arrow1 = document.getElementById('arrow1');
+				head1.style.color = "#FFFFFF";
+				head1.style.fontSize = "30px";
+				arrow1.style.display = "block";
+			}
+			function searchevent() {
+				var searchword = document.getElementById("searchword");
+				window.location.href = "http://www.baidu.com/s?wd=" + searchword.value + "&rsv_bp=0&rsv_spt=3&ie=utf-8";
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<section id="main">
+
+				<!-- <div class="head">
+
+					<div
+					style="position: absolute; top: 0px; left: 0px; width: 100%; z-index: -1; height: 120px">
+						<img src="img/phone/background_head.png"
+						style="height: 100%; width: 100%"></img>
+
+					</div>
+				</div> -->
+				<div class="headlayer">
+					<div class="headbox" id="hb1">
+						推荐排行 <img src="img/phone/arrow.png" class="arrow" id="arrow1"
+						style="display: none" />
+
+					</div>
+					<div class="headbox" id="hb2">
+						网址导航 <img src="img/phone/arrow.png" class="arrow" id="arrow2"
+						style="display: none" />
+					</div>
+				</div>
+				<article id="recomend" style="display:block">
+					<!--电视剧 -->
+					<br />
+					<div>
+						<h2>电视剧</h2>
+						<div id="tvb" style="display: block" class="rankbox">
+							<dl>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=509"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/509.jpg)"> </b> </a>
+									<p class="namethumb">
+										一代枭雄
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=479"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/479.jpg)"> </b> </a>
+									<p class="namethumb">
+										来自星星的你
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=510"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/510.jpg)"> </b> </a>
+									<p class="namethumb">
+										土地公土地婆
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=511"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/511.jpg)"> </b> </a>
+									<p class="namethumb">
+										利箭纵横
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=453"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/453.jpg)"> </b> </a>
+									<p class="namethumb">
+										烽火佳人
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=467"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/467.jpg)"> </b> </a>
+									<p class="namethumb">
+										新天龙八部钟汉良版
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=497"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/497.jpg)"> </b> </a>
+									<p class="namethumb">
+										无贼
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=461"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/461.jpg)"> </b> </a>
+									<p class="namethumb">
+										舌剑上的公堂
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=325"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/325.jpg)"> </b> </a>
+									<p class="namethumb">
+										咱们结婚吧
+									</p>
+								</dd>
+								
+							</dl>
+						</div>
+					</div>
+
+					<!--电影 -->
+					<br />
+
+					<div>
+						<h2>电影 </h2>
+						<div id="movb" style="display: block" class="rankbox">
+							<dl>
+								
+								<dd>
+									<a href="show_phoneprogram.do?pid=335"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/335.jpg)"> </b> </a>
+									<p class="namethumb">
+										非常幸运
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=489"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/489.jpg)"> </b> </a>
+									<p class="namethumb">
+										被偷走的那五年
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=163"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/163.jpg)"> </b> </a>
+									<p class="namethumb">
+										夜店北京
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=450"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/450.jpg)"> </b> </a>
+									<p class="namethumb">
+										梦想预备生之半熟少女
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=425"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/425.jpg)"> </b> </a>
+									<p class="namethumb">
+										星映话
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=38"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/38.jpg)"> </b> </a>
+									<p class="namethumb">
+										神偷奶爸
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=106"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/106.jpg)"> </b> </a>
+									<p class="namethumb">
+										毒战
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=402"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/402.jpg)"> </b> </a>
+									<p class="namethumb">
+										狄仁杰之神都龙王
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=536"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/536.jpg)"> </b> </a>
+									<p class="namethumb">
+										花漾
+									</p>
+								</dd>
+							
+							</dl>
+						</div>
+					</div>
+
+					<!--综艺 -->
+					<br />
+					<div>
+						<h2>综艺</h2>
+						<div id="variety" style="display: block" class="rankbox">
+							<dl>
+								
+								<dd>
+									<a href="show_phoneprogram.do?pid=55"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/55.jpg)"> </b> </a>
+									<p class="namethumb">
+										快乐大本营
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=52"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/52.jpg)"> </b> </a>
+									<p class="namethumb">
+										百变大咖秀
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=53"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/53.jpg)"> </b> </a>
+									<p class="namethumb">
+										优酷全娱乐
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=48"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/48.jpg)"> </b> </a>
+									<p class="namethumb">
+										康熙来了
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=237"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/237.jpg)"> </b> </a>
+									<p class="namethumb">
+										爸爸去哪儿
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=46"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/46.jpg)"> </b> </a>
+									<p class="namethumb">
+										天天向上
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=56"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/56.jpg)"> </b> </a>
+									<p class="namethumb">
+										轻松时刻
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=156"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/156.jpg)"> </b> </a>
+									<p class="namethumb">
+										我们约会吧
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=155"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/155.jpg)"> </b> </a>
+									<p class="namethumb">
+										爱情保卫战
+									</p>
+								</dd>
+							
+							</dl>
+						</div>
+					</div>
+
+					<!--动漫 -->
+					<br />
+					<div>
+						<h2>动漫 </h2>
+						<div id="anime" style="display: block" class="rankbox">
+							<dl>
+								
+								<dd>
+									<a href="show_phoneprogram.do?pid=423"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/423.jpg)"> </b> </a>
+									<p class="namethumb">
+										铠甲勇士拿瓦
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=66"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/66.jpg)"> </b> </a>
+									<p class="namethumb">
+										名侦探柯南
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=65"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/65.jpg)"> </b> </a>
+									<p class="namethumb">
+										熊出没之环球大冒险
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=71"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/71.jpg)"> </b> </a>
+									<p class="namethumb">
+										贝瓦儿歌
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=64"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/64.jpg)"> </b> </a>
+									<p class="namethumb">
+										熊出没之丛林总动员
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=67"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/67.jpg)"> </b> </a>
+									<p class="namethumb">
+										熊出没
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=330"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/330.jpg)"> </b> </a>
+									<p class="namethumb">
+										兔小贝系列儿歌
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=282"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/282.jpg)"> </b> </a>
+									<p class="namethumb">
+										米奇妙妙屋 国语版
+									</p>
+								</dd>
+							
+								<dd>
+									<a href="show_phoneprogram.do?pid=496"> <b
+									style="background-image: url(http://browser.changhong.com:9999/cworldPortal/detailpost/496.jpg)"> </b> </a>
+									<p class="namethumb">
+										懒羊羊当大厨
+									</p>
+								</dd>
+							
+							</dl>
+						</div>
+					</div>
+
+				</article>
+				<!-- 网址导航 -->
+				<article id="navigation" style="display:none;">
+					<!-- <a href="javascript:getinfo();"><span class="hotword">热门网站</span></a> -->
+					<span class="hotword">热门网站</span>
+					<div id="nagimgall" class="nagimgall">
+						<dl>
+							<dd>
+								<div>
+									<a href="http://www.iqiyi.com"><img src="img/phone/iqiyi.png" /></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://3g.163.com/x/"><img src="img/phone/netease.png" /></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://3g.sina.com.cn/"><img src="img/phone/sina.png" /></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://3gqq.qq.com/"><img src="img/phone/qq.png"
+									/></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://wap.sohu.com"><img src="img/phone/sohu.png"
+									/></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://wap.58.com"><img src="img/phone/58.png"
+									/></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://m.youku.com/"><img src="img/phone/youku.png"
+									/></a>
+								</div>
+							</dd>
+							<dd>
+								<div >
+									<a href="http://m.tianya.cn/index.jsp"><img
+									src="img/phone/tianya.png"  /></a>
+								</div>
+							</dd>
+							<dd>
+								<div>
+									<a href="http://m.baidu.com/"><img src="img/phone/baidu.png"
+									/></a>
+								</div>
+							</dd>
+						</dl>
+
+					</div>
+					<br />
+
+					<div id="nagwordall" class="nagwordall">
+
+						<span class="hotword"> 热门分类</span>
+						<div class="sites">
+							<table class="sitetab" width="99%">
+								<tbody>
+									<tr>
+										<td><span class="title">【视频】</span></td>
+										<td><a href="http://m.youku.com"><span
+										class="classword">优酷</span></a></td>
+										<td><a href="http://m.tudou.com/wap/index"><span
+										class="classword">土豆</span></a></td>
+										<td><a href="http://wap.pptv.com/"><span
+										class="classword">PPTV</span></a></td>
+										<td><a href="http://m.letv.com/"><span
+										class="classword">乐视</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【新闻】</span></td>
+										<td><a href="http://i.ifeng.com/news/newsi?"><span
+										class="classword">凤凰</span></a></td>
+										<td><a href="http://mt.huanqiu.com/"><span
+										class="classword">环球</span></a></td>
+										<td><a href="http://i.m.cctv.com/"><span
+										class="classword">央视</span></a></td>
+										<td><a href="http://m.people.cn/4g/"><span
+										class="classword">人民</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【小说】</span></td>
+										<td><a href="http://book.easou.com/"><span
+										class="classword">宜搜</span></a></td>
+										<td><a href="http://wap.hongxiu.com/3g/"><span
+										class="classword">红袖</span></a></td>
+										<td><a href="http://3g.xs.cn/"><span class="classword">阅读</span></a></td>
+										<td><a href="http://xs.duoku.com/novel/"><span
+										class="classword">书城</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【社交】</span></td>
+										<td><a href="http://m.weibo.cn/"><span
+										class="classword">微博</span></a></td>
+										<td><a
+										href="http://pt.3g.qq.com/s?aid=nLoginqz&sid=AcEa7L0TKRjCS0Whcw-8ohLb&KqqWap_Act=3&g_ut=2&go_url=http%3A%2F%2Fz.qq.com%2Findex.jsp"> <span class="classword">Q空间</span> </a></td>
+										<td><a href="http://wapp.baidu.com/"> <span
+										class="classword">贴吧</span></a></td>
+										<td><a href="http://m.tianya.cn/index.jsp"><span
+										class="classword">天涯</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【体育】</span></td>
+										<td><a href="http://nba.sina.cn/"><span
+										class="classword">NBA</span></a></td>
+										<td><a href="http://sports.sina.cn/"><span
+										class="classword">新浪</span></a></td>
+										<td><a href="http://m.sohu.com/c/3/?jumpfrom=sohu_wap"><span
+										class="classword">搜狐</span></a></td>
+										<td><a href="http://m.spbo1.com/"><span
+										class="classword">比分</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【彩票】</span></td>
+										<td><a href="http://aifucai.com/class.php?id=3"><span
+										class="classword">福彩</span></a></td>
+										<td><a href="http://wcai8.com/index.php?id=143&sid=&st=2"><span
+										class="classword">双色球</span></a></td>
+										<td><a
+										href="http://m.hao123.com/n/v/caipiao/zucai?z=1&z=126082"><span
+										class="classword">体彩</span></a></td>
+										<td><a href="http://wap.zhcw.com/"><span
+										class="classword">中彩</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【购物】</span></td>
+										<td><a href="http://m.taobao.com/"><span
+										class="classword">淘宝</span></a></td>
+										<td><a href="http://m.jd.com/"><span class="classword">京东</span></a></td>
+										<td><a href="http://m.tianmao.com/"><span
+										class="classword">天猫</span></a></td>
+										<td><a href="http://www.amazon.cn/gp/aw/"><span
+										class="classword">亚马逊</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【生活】</span></td>
+										<td><a href="http://m.58.com/"><span class="classword">58同城</span></a></td>
+										<td><a href="http://wap.ganji.com/"><span
+										class="classword">赶集</span></a></td>
+										<td><a href="http://m.dianping.com/"><span
+										class="classword">点评</span></a></td>
+										<td><a href="http://m.baixing.com/"><span
+										class="classword">百姓</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【军事】</span></td>
+										<td><a href="http://3g.sina.com.cn/3g/jczs/"><span
+										class="classword">新浪</span></a></td>
+										<td><a href="http://i.ifeng.com/mil/mili"><span
+										class="classword">凤凰</span></a></td>
+										<td><a href="http://m.tiexue.net/3g/"><span
+										class="classword">铁血</span></a></td>
+										<td><a
+										href="http://3g.163.com/news/special/00010360/junshiindex.html"><span
+										class="classword">网易</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【音乐】</span></td>
+										<td><a
+										href="http://mp3.easou.com/index.html?esid=S5oLpWDaRUy3Dj03zBz_Ze_2z33VQ&wver=t&fr=#rec%3A"><span
+										class="classword">宜搜</span></a></td>
+										<td><a href="http://m.kuwo.cn/"><span class="classword">酷我</span></a></td>
+										<td><a href="http://m.kugou.com/"><span
+										class="classword">酷狗</span></a></td>
+										<td><a href="http://m.yicha.cn/tm/index.html"><span
+										class="classword">易查</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【财经】</span></td>
+										<td><a href="http://3g.sina.com.cn/3g/finance/"><span
+										class="classword">新浪</span></a></td>
+										<td><a href="http://wap.eastmoney.com/default.aspx?vt=1"><span
+										class="classword">东方</span></a></td>
+										<td><a href="http://wap.hexun.com/2.0/index.wml"><span
+										class="classword">和讯</span></a></td>
+										<td><a href="http://i.ifeng.com/finance/financei"><span
+										class="classword">凤凰</span></a></td>
+									</tr>
+									<tr>
+										<td><span class="title">【交友】</span></td>
+										<td><a href="http://3338.yoyuan.com.cn/?from=3338"><span
+										class="classword">有缘</span></a></td>
+										<td><a href="http://m.jiayuan.com/"><span
+										class="classword">佳缘</span></a></td>
+										<td><a href="http://www.zhenai.com/"><span
+										class="classword">珍爱</span></a></td>
+										<td><a href="http://3g.baihe.com/index/index.html"><span
+										class="classword">百合</span></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</article>
+			</section>
+		</div>
+	</body>
+
+</html>

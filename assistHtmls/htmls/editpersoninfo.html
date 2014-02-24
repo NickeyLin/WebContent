@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>基本信息编辑</title>
+		<meta name="viewport"
+		content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height" />
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			body #mainDiv {
+				height: 100%;
+				width: 100%;
+			}
+
+			#headerDiv {
+				position: relative;
+				line-height: 35px;
+				width: 100%;
+				height: 50px;
+				background: url(png/title.png) no-repeat;
+				background-size: cover;
+				background-position: 50% 50%;
+			}
+
+			#header {
+				text-align: center;
+				padding-top: 10px;
+				margin: 0 5px 20px 5px;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				color: #FFFFFF;
+			}
+
+			.element {
+				position: relative;
+				margin: 20px auto;
+				height: 30px;
+				width: 90%;
+			}
+
+			.elementName {
+				position: relative;
+				float: left;
+				font-family: "微软雅黑";
+				font-size: 1.2em;
+				padding-top: 7px;
+				padding-bottom: 0;
+				margin: auto auto;
+				width: 85px;
+				height: 30px;
+				left: 5%;
+				text-align: center;
+				color: #0066FF;
+			}
+
+			.element .input {
+				position: relative;
+				margin: 0 auto;
+				line-height: 35px;
+				left: 2%;
+				width: 60%;
+				height: 35px;
+				font-size: 16px;
+				padding-left: 10px;
+				background: url(../png/input.png) no-repeat;
+				border: none;
+				background-size: 100% 35px;
+			}
+
+			.element .sex {
+				display: none;
+			}
+
+			.element span {
+				width: 60%;
+				height: 45px;
+				margin-left: 10px;
+			}
+
+			.element #maleLabel, #femaleLabel {
+				padding: 5px 14% 15px 14%;
+				font-family: "微软雅黑";
+				font-size: 17px;
+				left: 10px;
+			}
+
+			.element #maleLabel {
+				position: relative;
+				left: 1%;
+				background: url(png/sex1.png) no-repeat;
+				background-size: 100% 38px;
+			}
+
+			.element #femaleLabel {
+				position: relative;
+				left: 0;
+				background: url(png/sex3.png) no-repeat;
+				background-size: 100% 38px;
+			}
+
+			@media screen and (max-width: 360px) {
+				.element #maleLabel, #femaleLabel {
+					padding: 5px 12.5% 15px 12.5%;
+				}
+			}
+
+			@media screen and (min-width: 360px) and (max-width: 480px) {
+				.element #maleLabel, #femaleLabel {
+					padding: 5px 13% 15px 13%;
+				}
+			}
+
+			#mainDiv form button {
+				position: relative;
+				margin: 5px 20px;
+				width: 35%;
+				padding: 5px 10px;
+				height: 40px;
+				font-family: "微软雅黑";
+				font-size: 16px;
+				border: none;
+				background: url(png/button3.png) no-repeat;
+				background-size: 100% 40px;
+			}
+
+			#mainDiv form button:active {
+				font-family: "微软雅黑";
+				border: none;
+				background: url(png/button4.png) no-repeat 0px -2px;
+				background-size: 100% 40px;
+				color: #FFFFFF;
+			}
+		</style>
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
+		<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="../js/util.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			var isLogin;
+			var notLoginError;
+
+			window.onload = function() {
+				document.getElementById("user_id").value = queryString["user_id"];
+
+				setHeight();
+				loadUserInfo();
+			};
+			window.onresize = function() {
+				setHeight();
+			};
+
+			function loadUserInfo() {
+				var xmlhttp;
+				var url;
+
+				if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp = new XMLHttpRequest();
+				} else {// code for IE6, IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						var userinfo;
+						var error;
+						try {
+							userinfo = eval('(' + xmlhttp.responseText + ')');
+							error = userinfo.error;
+						} catch (exception) {
+							//console.log(exception);
+						}
+
+						if (error != null) {
+							isLogin = false;
+							notLoginError = error;
+							alert(error);
+						} else {
+							isLogin = true;
+							document.getElementById("nickName").value = userinfo.nickName == null ? "" : userinfo.nickName;
+							document.getElementById("signature").value = userinfo.personalInfo == null ? "" : userinfo.personalInfo;
+							// 接口0代表女，1代表男。
+							if (userinfo.sex && userinfo.sex.length > 0 && (userinfo.sex == '1' || userinfo.sex == '男'))
+								changesex('maleLabel');
+							else if (userinfo.sex && userinfo.sex.length > 0)
+								changesex('femaleLabel');
+						}
+					}
+				};
+				if (window.location.search.length <= 0) {
+					url = window.location.pathname + "?action=localizeduserinfo";
+				} else {
+					url = window.location.pathname + window.location.search + "&action=localizeduserinfo";
+				}
+				xmlhttp.open("POST", url, true);
+				xmlhttp.send();
+			}
+
+			function setHeight() {
+				var eleHeight, lengh;
+				eleHeight = document.getElementById("form").offsetHeight;
+				lengh = (document.body.scrollHeight - eleHeight) / 4;
+				document.getElementById("headerDiv").style.marginBottom = lengh + "px";
+			};
+
+			function changesex(id) {
+				var inputId;
+				if (id == "maleLabel") {
+					inputId = "male";
+					document.getElementById("maleLabel").style.backgroundImage = "url(png/sex2.png)";
+					document.getElementById("maleLabel").style.backgroundRepeat = "no-repeat";
+					document.getElementById("maleLabel").style.color = "#0066FF";
+					document.getElementById("femaleLabel").style.backgroundImage = "url(png/sex3.png)";
+					document.getElementById("femaleLabel").style.backgroundRepeat = "no-repeat";
+					document.getElementById("femaleLabel").style.color = "#000000";
+				} else {
+					inputId = "female";
+					document.getElementById("femaleLabel").style.backgroundImage = "url(png/sex4.png)";
+					document.getElementById("femaleLabel").style.backgroundRepeat = "no-repeat";
+					document.getElementById("femaleLabel").style.color = "#0066FF";
+					document.getElementById("maleLabel").style.backgroundImage = "url(png/sex1.png)";
+					document.getElementById("maleLabel").style.backgroundRepeat = "no-repeat";
+					document.getElementById("maleLabel").style.color = "#000000";
+				}
+				document.getElementById(inputId).checked = "checked";
+			}
+
+			function complete_submit(e) {
+				if (!isLogin) {
+					alert(notLoginError + "\n您可以刷新或者扫描二维码来重新获取用户信息");
+					return;
+				};
+				$.post("modifyinfo", {
+					nickName : $("#nickName").val(),
+					signature : $("#signature").val(),
+					sex : $("input[name='sex']:checked").val()
+				}).always(function(data) {
+					if (null == data) {
+						alert("请求发送失败，请检查你的网络是否正常。");
+					}
+					var iframe = document.getElementById("result");
+					var doc = iframe.document;
+					if (iframe.contentDocument)
+						doc = iframe.contentDocument;
+					// For NS6
+					else if (iframe.contentWindow)
+						doc = iframe.contentWindow.document;
+					// For IE5.5 and IE6
+
+					doc.open();
+					doc.writeln(data);
+					doc.close();
+				});
+			}
+
+		</script>
+	</head>
+	<body>
+		<div id="mainDiv" style="-moz-user-select: -moz-none;"
+		onselectstart="return false;">
+			<div id="headerDiv">
+				<p id="header">
+					基本信息编辑
+				</p>
+			</div>
+
+			<form action="modifyinfo" method="post" autocomplete="off" id="form" target="result">
+				<div class="element">
+					<p class="elementName">
+						呢&emsp;&emsp; 称:
+					</p>
+					<input type="text" id="nickName" name="nickname" class="input" />
+				</div>
+				<div class="element">
+					<p class="elementName">
+						个人签名:
+					</p>
+					<input type="text" id="signature" name="signature" class="input" />
+				</div>
+				<div class="element">
+					<p class="elementName">
+						性&emsp;&emsp; 别:
+					</p>
+					<span>
+						<input type="radio" id="male" name="sex" value="男"
+						class="sex" />
+						<label for="male" id="maleLabel"
+						onclick="changesex(this.id)">男</label>
+						<input type="radio"
+						id="female" name="sex" value="女" class="sex" />
+						<label
+						for="female" id="femaleLabel" onclick="changesex(this.id)">女</label> </span>
+				</div>
+				<input type="hidden" id="user_id" name="user_id" value="" />
+
+				<button type="button" id="complete" onclick="complete_submit(this)">
+					完&emsp; 成
+				</button>
+				<button type="button" id="more"
+				onclick="window.location.href='moreinfo.html'+window.location.search;">
+					更&emsp; 多
+				</button>
+			</form>
+
+			<div>
+				<iframe frameborder="0" id="result" style="width:80%;display:none;" >
+
+				</iframe>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>更换头像</title>
+		<meta charset="utf-8">
+		<meta name="viewport"
+		content="initial-scale=0.9, minimum-scale=0.9, maximum-scale=0.9, user-scalable=no" />
+
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+		<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
+		<link rel=styleSheet type="text/css" href="../css/upload.css" />
+		<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="../js/binaryajax.js"></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
+		<script type="text/javascript" src="../js/megapix-image.js"></script>
+		<script type="text/javascript" src="../js/util.js"></script>
+		<script type="text/javascript" src="../js/upload.js"></script>
+
+	</head>
+	<body>
+		<div id="mainDiv" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+			<div id="headerDiv">
+				<p id="header">
+					更换头像
+				</p>
+			</div>
+			<div class="content">
+				<div id="previewImage">
+					<canvas id="image" style="position:absolute;left:0;top:0;" width="600" height="600">
+						your browser does not support the canvas tag
+					</canvas>
+				</div>
+				<canvas id="canvas" style="position:absolute;left:0;top:0;">
+					your browser does not support the canvas tag
+				</canvas>
+				<div id="scaleButtons" style="display:none;">
+					<button type="button" id="roomOut" style="margin-right:5%;background-image:url('../png/zoomout.png');" onclick="zoomOut()" ></button>
+					<button id="roomIn" style="margin-right:5%;background-image:url('../png/zoomin.png');" onclick="zoomIn()"></button>
+					<button id="rotate" style="margin-right:5%;background-image:url('../png/rotate.png');" onclick="rotate()"></button>
+					<button id="clip" style="background-image:url('../png/ok.png');" onclick="clip()"></button>
+				</div>
+
+				<div id="form" style="position: absolute;width: 100%;">
+					<div>
+						<div class="inputFile">
+							<input id="file" type="file" accept="image/*" name="file" onchange="selectedFile(this)" style="height:30px;z-index:1;"/>
+						</div>
+					</div>
+				</div>
+
+				<div id="uploadBlock" style="display:none;">
+					<div id="confirm">
+						<button id="btnReset" class="button shortbtn" onclick="resetCanvas()">
+							重新裁剪
+						</button>
+						<button id="btnUpload" class="button shortbtn" onclick="upload()">
+							上传
+						</button>
+					</div>
+					<div class="progress">
+						<div class="bar" style="width: 0%;"></div>
+						<b class="percent"> 0% </b>
+						<p id="status" style="width:100%"></p>
+					</div>
+				</div>
+
+				<div>
+					<iframe frameborder="0" id="result" name="result" style="width:80%;display:none;">
+
+					</iframe>
+				</div>
+				<!--<p id="codeTip" class="tips" style="width:auto;display:block;position: relative;top: 50px;">
+				<i>若你当前使用的是二维码扫描工具内置的浏览器浏览本页面，则建议使用其他专门的浏览器以获得更好的体验。</i>
+				</p>-->
+			</div>
+		</div>
+	</body>
+</html>

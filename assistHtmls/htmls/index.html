@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>云账号中心</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css" >
+            body #mainDiv {
+                height: 100%;
+                width: 100%;
+            }
+
+            #headerDiv {
+                position: relative;
+                line-height: 35px;
+                width: 100%;
+                height: 50px;
+                background: url(png/title.png) no-repeat;
+                background-size: cover;
+                background-position: 50% 50%;
+            }
+            #header {
+                text-align: center;
+                padding-top: 10px;
+                margin: 0 5px 20px 5px;
+                font-family: "微软雅黑";
+                font-size: 18px;
+                color: #FFFFFF;
+            }
+
+            .element {
+                position: relative;
+                margin: 20px auto;
+                height: 30px;
+                width: 90%;
+            }
+
+            .element span {
+                width: 60%;
+                height: 45px;
+                margin-left: 10px;
+            }
+
+            #mainDiv #btnDiv button {
+                position: relative;
+                margin: 5px auto;
+                width: 65%;
+                padding: 5px 10px;
+                height: 40px;
+                font-family: "微软雅黑";
+                font-size: 18px;
+                border: none;
+                background: url(png/button1.png) no-repeat;
+                background-size: 100% 40px;
+            }
+
+            #mainDiv #btnDiv button:active {
+                font-family: "微软雅黑";
+                border: none;
+                background: url(png/button.png) no-repeat 0px -2px;
+                background-size: 100% 40px;
+                color: #FFFFFF;
+            }
+
+        </style>
+        <link rel=styleSheet type="text/css" href="../css/common.css" />
+        <script type="text/javascript" charset="utf-8">
+            window.onload = function() {
+                setHeight();
+            };
+            window.onresize = function() {
+                setHeight();
+            };
+
+            function setHeight() {
+                var eleHeight, lengh;
+                eleHeight = document.getElementById("btnDiv").offsetHeight;
+                lengh = (document.body.scrollHeight - eleHeight) / 4;
+                document.getElementById("headerDiv").style.marginBottom = lengh + "px";
+                //alert(eleHeight+"&"+document.body.scrollHeight+"&"+lengh);
+            };
+
+            function upload() {
+                var ua = navigator.userAgent.toLowerCase();                
+                var isAndroid = ua.indexOf("android") > -1;
+                //var androidVersion = ua.substr(ua.indexOf("android") + 8, 3);
+
+                if (isAndroid && ua.indexOf("micromessenger") != -1) {
+                    alert("微信内置浏览器不支持网页上传文件，建议使用其他浏览器来修改头像!");
+                } else if (isAndroid && ua.indexOf("kuaip ai") != -1) {
+                    alert("'快拍二维码'内置浏览器不支持网页上传文件，建议使用其他浏览器来修改头像!");
+                } else {
+                    window.location.href = 'upload.html' + window.location.search;
+                }
+            }
+
+            function changeUser() {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        //do something
+                    }
+                };
+                xmlhttp.open("POST", "/changeuser", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send();
+                window.location.href = 'login.html';
+            };
+            function changePhone() {
+                window.location.href = 'changephone.html' + window.location.search;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="mainDiv" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+            <div id="headerDiv">
+                <p id="header">
+                    云账号中心
+                </p>
+            </div>
+            <div id="btnDiv">
+                <button type="button" id="editPersonalInfo" onclick="window.location.href='editpersoninfo.html'+window.location.search;">
+                    基本信息编辑
+                </button>
+                <button type="button" id="changeHeadPic" onclick="upload()">
+                    更换头像
+                </button>
+                <button type="button" id="modifyPassword" onclick="window.location.href='modifypassword.html'+window.location.search;">
+                    修改密码
+                </button>
+                <button type="button" id="changePhone" onclick="changePhone()">
+                    修改密保手机
+                </button>
+                <!--<button type="button" id="switchAccount" onclick="changeUser()">
+                切换账户
+                </button>-->
+            </div>
+        </div>
+    </body>
+</html>
