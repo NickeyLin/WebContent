@@ -16,11 +16,7 @@ $(document).on("pageshow", "#pagelogin", function(){
 		}
 	});
 });
-function setHeight() {
-	var lengh;
-	lengh = document.body.scrollHeight / 6;
-	$("div[data-role='content']").css("padding-top", '55px');
-};
+
 function login_submit() {
 	$.post("login", {
 		username : $("#pagelogin #username").val(),

@@ -22,3 +22,9 @@ var queryString = function() {
 	}
 	return query_string;
 }();
+
+function setHeight() {
+	var lengh;
+	lengh = document.body.scrollHeight / 6;
+	$("div[data-role='content']").css("padding-top", '55px');
+};

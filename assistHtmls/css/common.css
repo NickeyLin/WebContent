@@ -1,10 +1,12 @@
-body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, p, pre, table, caption, th, td, form, input, button, select, textarea {
+body,div,ul,ol,dl,dt,dd,li,dl,h1,h2,h3,h4,p,pre,table,caption,th,td,form,input,button,select,textarea
+	{
 	margin: 0;
 	padding: 0;
 	font-style: normal;
 	font: 12px/22px "微软雅黑", Arial, Helvetica, sans-serif;
 }
-ol, ul, li {
+
+ol,ul,li {
 	list-style: none;
 }
 
@@ -25,6 +27,7 @@ body {
 	overflow: hidden;
 	margin-top: -1px;
 }
+
 .bgd_input .input {
 	line-height: 35px;
 	width: 88%;
@@ -39,12 +42,14 @@ body {
 	background: url(../png/input.png) no-repeat;
 	background-size: 100% 35px;
 }
+
 .bgd_input.short {
 	width: 83%;
 	margin: auto;
 	background: url(../png/input1.png) no-repeat;
 	background-size: 100% 35px;
 }
+
 .icon {
 	width: 16px;
 	height: 18px;
@@ -58,6 +63,7 @@ body {
 button {
 	background-color: transparent;
 }
+
 .tips {
 	color: red;
 	font-size: 10px;
@@ -79,6 +85,7 @@ button {
 	background-repeat: no-repeat;
 	background-size: 100% 40px;
 }
+
 .button.shortbtn {
 	font-weight: normal;
 	font-size: 14px;
@@ -98,10 +105,12 @@ button {
 	background-color: transparent;
 	background-image: url(../png/button_normal.png);
 }
+
 .button.midbtn:active {
 	background-image: url(../png/button_pressed.png);
 	color: #444444;
 }
+
 .button.midbtn.checked {
 	color: white;
 	margin: 10px 5%;
@@ -114,12 +123,14 @@ button {
 	background-image: url(../png/button_pressed.png);
 	color: #444444;
 }
+
 .button.longbtn {
 	margin: 10px auto;
 	width: 70%;
 	background-color: transparent;
 	background-image: url(../png/button1.png);
 }
+
 .button.longbtn.checked {
 	color: white;
 	margin: 10px auto;
@@ -127,6 +138,7 @@ button {
 	background-color: transparent;
 	background-image: url(../png/button.png);
 }
+
 .button.longbtn:active {
 	background-image: url(../png/button.png);
 	color: #ffffff;
@@ -140,11 +152,11 @@ button {
 }
 /*E----------------------------------------------*/
 .ui-btn-e {
-	text-shadow:0 0 0 !important;
+	text-shadow: 0 0 0 !important;
 	border: none;
 	color: #ffffff !important;
 	background-color: transparent !important;
-	font-weight:lighter !important;
+	font-weight: lighter !important;
 }
 
 /*F----------------------------------------------*/
@@ -154,6 +166,7 @@ button {
 	background-size: cover;
 	background-position: 50% 50%;
 }
+
 .ui-body-f {
 	font-weight: bold;
 	color: purple;
@@ -172,9 +185,11 @@ button {
 	background-size: 100% 40px;
 	line-height: 30px;
 }
+
 a.ui-btn-f {
 	width: 60%;
 }
+
 .ui-btn-f:active {
 	background-image: url(../png/button4.png);
 	color: #444444;
@@ -189,11 +204,14 @@ a.ui-btn-f {
 /*网格-------------------------------------------*/
 /*ui-grid-a 2列, 50% 50%
   ui-grid-b 2列, 25% 75%
-  ui-grid-C 3列, 25% 37% 37%*/
-.ui-grid-a, .ui-grid-b, .ui-grid-c {
+  ui-grid-c 3列, 25% 37% 37%
+  ui-grid-d 宽度小于500px 2列 25% 75% 
+  			宽度大于500px */
+.ui-grid-a,.ui-grid-b,.ui-grid-c {
 	margin-top: 10px;
 }
-.ui-grid-b .ui-block-a, .ui-grid-c .ui-block-a {
+
+.ui-grid-b .ui-block-a,.ui-grid-c .ui-block-a {
 	width: 25%;
 }
 
@@ -201,10 +219,16 @@ a.ui-btn-f {
 	width: 75%;
 }
 
-.ui-grid-c .ui-block-b, .ui-grid-c .ui-block-c{
+.ui-grid-c .ui-block-b,.ui-grid-c .ui-block-c {
 	width: 37%;
 }
 
-.ui-block-a, .ui-block-b, .ui-block-c {
+.ui-block-a,.ui-block-b,.ui-block-c {
 	text-align: center;
+}
+
+@media screen and (min-width: 500px) {
+	.ui-grid-d {
+		width: 50%;
+	}
 }

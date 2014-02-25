@@ -1,313 +1,243 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>基本信息编辑</title>
-		<meta name="viewport"
-		content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height" />
-		<meta name="format-detection" content="telephone=no">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<style type="text/css">
-			body #mainDiv {
-				height: 100%;
-				width: 100%;
-			}
+<head>
+<meta charset="UTF-8">
+<title>基本信息编辑</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height" />
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.elementName {
+	float: left;
+	font-family: "微软雅黑";
+	font-size: 18px;
+	padding-top: 7px;
+	padding-bottom: 0;
+	margin: auto auto;
+	width: 80px;
+	height: 30px;
+	left: 2%;
+	text-align: center;
+	color: #0066FF;
+}
 
-			#headerDiv {
-				position: relative;
-				line-height: 35px;
-				width: 100%;
-				height: 50px;
-				background: url(png/title.png) no-repeat;
-				background-size: cover;
-				background-position: 50% 50%;
-			}
+.radiobtn {
+	position: relative;
+	padding: 0 !important;
+	height: 35px;
+	width: 80px !important;
+	font-family: "微软雅黑";
+	font-size: 16px !important;
+	font-weight: bold;
+	border: none;
+	background-repeat: no-repeat;
+	background-size: 100% 35px;
+	line-height: 35px !important;
+}
 
-			#header {
-				text-align: center;
-				padding-top: 10px;
-				margin: 0 5px 20px 5px;
-				font-family: "微软雅黑";
-				font-size: 18px;
-				color: #FFFFFF;
-			}
+.bgd_radiobtn_l {
+	background-image: url(../png/sex1.png);
+}
+/* .bgd_radiobtn_l:active {
+	background-image: url(../png/sex2.png) !important;
+} */
+.bgd_radiobtn_m {
+	
+}
 
-			.element {
-				position: relative;
-				margin: 20px auto;
-				height: 30px;
-				width: 90%;
-			}
+.bgd_radiobtn_r {
+	background-image: url(../png/sex3.png);
+}
+</style>
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.1.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.theme-1.4.1.css" />
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.4.1.js"></script>
+<link rel=styleSheet type="text/css" href="../css/common.css" />
+<script type="text/javascript" src="../js/util.js"></script>
 
-			.elementName {
-				position: relative;
-				float: left;
-				font-family: "微软雅黑";
-				font-size: 1.2em;
-				padding-top: 7px;
-				padding-bottom: 0;
-				margin: auto auto;
-				width: 85px;
-				height: 30px;
-				left: 5%;
-				text-align: center;
-				color: #0066FF;
-			}
+<script type="text/javascript" charset="utf-8">
+	var isLogin;
+	var notLoginError;
+	var sex;
+	
+	window.onload = function() {
+		setHeight();
+	};
+	window.onresize = function() {
+		setHeight();
+	};
 
-			.element .input {
-				position: relative;
-				margin: 0 auto;
-				line-height: 35px;
-				left: 2%;
-				width: 60%;
-				height: 35px;
-				font-size: 16px;
-				padding-left: 10px;
-				background: url(../png/input.png) no-repeat;
-				border: none;
-				background-size: 100% 35px;
-			}
+	window.onpageshow = function() {
+		document.getElementById("user_id").value = queryString["user_id"];
+		loadUserInfo();
+	};
+	function loadUserInfo() {
+		var xmlhttp;
+		var url;
 
-			.element .sex {
-				display: none;
-			}
-
-			.element span {
-				width: 60%;
-				height: 45px;
-				margin-left: 10px;
-			}
-
-			.element #maleLabel, #femaleLabel {
-				padding: 5px 14% 15px 14%;
-				font-family: "微软雅黑";
-				font-size: 17px;
-				left: 10px;
-			}
-
-			.element #maleLabel {
-				position: relative;
-				left: 1%;
-				background: url(png/sex1.png) no-repeat;
-				background-size: 100% 38px;
-			}
-
-			.element #femaleLabel {
-				position: relative;
-				left: 0;
-				background: url(png/sex3.png) no-repeat;
-				background-size: 100% 38px;
-			}
-
-			@media screen and (max-width: 360px) {
-				.element #maleLabel, #femaleLabel {
-					padding: 5px 12.5% 15px 12.5%;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var userinfo;
+				var error;
+				try {
+					userinfo = eval('(' + xmlhttp.responseText + ')');
+					error = userinfo.error;
+				} catch (exception) {
+					//console.log(exception);
 				}
-			}
 
-			@media screen and (min-width: 360px) and (max-width: 480px) {
-				.element #maleLabel, #femaleLabel {
-					padding: 5px 13% 15px 13%;
-				}
-			}
-
-			#mainDiv form button {
-				position: relative;
-				margin: 5px 20px;
-				width: 35%;
-				padding: 5px 10px;
-				height: 40px;
-				font-family: "微软雅黑";
-				font-size: 16px;
-				border: none;
-				background: url(png/button3.png) no-repeat;
-				background-size: 100% 40px;
-			}
-
-			#mainDiv form button:active {
-				font-family: "微软雅黑";
-				border: none;
-				background: url(png/button4.png) no-repeat 0px -2px;
-				background-size: 100% 40px;
-				color: #FFFFFF;
-			}
-		</style>
-		<link rel=styleSheet type="text/css" href="../css/common.css" />
-		<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="../js/util.js"></script>
-
-		<script type="text/javascript" charset="utf-8">
-			var isLogin;
-			var notLoginError;
-
-			window.onload = function() {				
-				setHeight();
-			};
-			window.onresize = function() {
-				setHeight();
-			};
-			
-			window.onpageshow = function(){
-				document.getElementById("user_id").value = queryString["user_id"];
-				loadUserInfo();
-			};
-			function loadUserInfo() {
-				var xmlhttp;
-				var url;
-
-				if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-					xmlhttp = new XMLHttpRequest();
-				} else {// code for IE6, IE5
-					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						var userinfo;
-						var error;
-						try {
-							userinfo = eval('(' + xmlhttp.responseText + ')');
-							error = userinfo.error;
-						} catch (exception) {
-							//console.log(exception);
-						}
-
-						if (error != null) {
-							isLogin = false;
-							notLoginError = error;
-							alert(error);
-						} else {
-							isLogin = true;
-							document.getElementById("nickName").value = userinfo.nickName == null ? "" : userinfo.nickName;
-							document.getElementById("signature").value = userinfo.personalInfo == null ? "" : userinfo.personalInfo;
-							// 接口0代表女，1代表男。
-							if (userinfo.sex && userinfo.sex.length > 0 && (userinfo.sex == '1' || userinfo.sex == '男'))
-								changesex('maleLabel');
-							else if (userinfo.sex && userinfo.sex.length > 0)
-								changesex('femaleLabel');
-						}
-					}
-				};
-				if (window.location.search.length <= 0) {
-					url = window.location.pathname + "?action=localizeduserinfo";
+				if (error != null) {
+					isLogin = false;
+					notLoginError = error;
+					alert(error);
 				} else {
-					url = window.location.pathname + window.location.search + "&action=localizeduserinfo";
+					isLogin = true;
+					document.getElementById("nickName").value = userinfo.nickName == null ? ""
+							: userinfo.nickName;
+					document.getElementById("signature").value = userinfo.personalInfo == null ? ""
+							: userinfo.personalInfo;
+					// 接口0代表女，1代表男。
+					if (userinfo.sex && userinfo.sex.length > 0
+							&& (userinfo.sex == '1' || userinfo.sex == '男'))
+						changesex('maleLabel');
+					else if (userinfo.sex && userinfo.sex.length > 0)
+						changesex('femaleLabel');
 				}
-				xmlhttp.open("POST", url, true);
-				xmlhttp.send();
 			}
+		};
+		if (window.location.search.length <= 0) {
+			url = window.location.pathname + "?action=localizeduserinfo";
+		} else {
+			url = window.location.pathname + window.location.search
+					+ "&action=localizeduserinfo";
+		}
+		xmlhttp.open("POST", url, true);
+		xmlhttp.send();
+	}
 
-			function setHeight() {
-				var eleHeight, lengh;
-				eleHeight = document.getElementById("form").offsetHeight;
-				lengh = (document.body.scrollHeight - eleHeight) / 4;
-				document.getElementById("headerDiv").style.marginBottom = lengh + "px";
-			};
+	function changesex(id) {
+		var inputId;
+		if (id == "male") {
+			inputId = "male";
+			document.getElementById("male").style.backgroundImage = "url(../png/sex2.png)";
+			document.getElementById("male").style.color = "#0066FF";
+			document.getElementById("female").style.backgroundImage = "url(../png/sex3.png)";
+			document.getElementById("female").style.color = "#000000";
+			sex='男';
+		} else {
+			inputId = "female";
+			document.getElementById("female").style.backgroundImage = "url(../png/sex4.png)";
+			document.getElementById("female").style.color = "#0066FF";
+			document.getElementById("male").style.backgroundImage = "url(../png/sex1.png)";
+			document.getElementById("male").style.color = "#000000";
+			sex='女';
+		}
+	}
 
-			function changesex(id) {
-				var inputId;
-				if (id == "maleLabel") {
-					inputId = "male";
-					document.getElementById("maleLabel").style.backgroundImage = "url(png/sex2.png)";
-					document.getElementById("maleLabel").style.backgroundRepeat = "no-repeat";
-					document.getElementById("maleLabel").style.color = "#0066FF";
-					document.getElementById("femaleLabel").style.backgroundImage = "url(png/sex3.png)";
-					document.getElementById("femaleLabel").style.backgroundRepeat = "no-repeat";
-					document.getElementById("femaleLabel").style.color = "#000000";
-				} else {
-					inputId = "female";
-					document.getElementById("femaleLabel").style.backgroundImage = "url(png/sex4.png)";
-					document.getElementById("femaleLabel").style.backgroundRepeat = "no-repeat";
-					document.getElementById("femaleLabel").style.color = "#0066FF";
-					document.getElementById("maleLabel").style.backgroundImage = "url(png/sex1.png)";
-					document.getElementById("maleLabel").style.backgroundRepeat = "no-repeat";
-					document.getElementById("maleLabel").style.color = "#000000";
-				}
-				document.getElementById(inputId).checked = "checked";
+	function complete_submit(e) {
+		if (!isLogin) {
+			alert(notLoginError + "\n您可以刷新或者扫描二维码来重新获取用户信息");
+			return;
+		}
+		;
+		$.post("modifyinfo", {
+			user_id : $("#user_id").val(),
+			nickname : $("#nickName").val(),
+			signature : $("#signature").val(),
+			sex : sex
+		}).always(function(data) {
+			if (null == data) {
+				alert("请求发送失败，请检查你的网络是否正常。");
 			}
+			var iframe = document.getElementById("result");
+			var doc = iframe.document;
+			if (iframe.contentDocument)
+				doc = iframe.contentDocument;
+			// For NS6
+			else if (iframe.contentWindow)
+				doc = iframe.contentWindow.document;
+			// For IE5.5 and IE6
 
-			function complete_submit(e) {
-				if (!isLogin) {
-					alert(notLoginError + "\n您可以刷新或者扫描二维码来重新获取用户信息");
-					return;
-				};
-				$.post("modifyinfo", {
-					user_id : $("#user_id").val(),
-					nickname : $("#nickName").val(),
-					signature : $("#signature").val(),
-					sex : $("input[name='sex']:checked").val()
-				}).always(function(data) {
-					if (null == data) {
-						alert("请求发送失败，请检查你的网络是否正常。");
-					}
-					var iframe = document.getElementById("result");
-					var doc = iframe.document;
-					if (iframe.contentDocument)
-						doc = iframe.contentDocument;
-					// For NS6
-					else if (iframe.contentWindow)
-						doc = iframe.contentWindow.document;
-					// For IE5.5 and IE6
-
-					doc.open();
-					doc.writeln(data);
-					doc.close();
-				});
-			}
-
-		</script>
-	</head>
-	<body>
-		<div id="mainDiv" style="-moz-user-select: -moz-none;"
-		onselectstart="return false;">
-			<div id="headerDiv">
-				<p id="header">
-					基本信息编辑
-				</p>
-			</div>
-
-			<form action="modifyinfo" method="post" autocomplete="off" id="form" target="result">
-				<div class="element">
-					<p class="elementName">
-						呢&emsp;&emsp; 称:
-					</p>
-					<input type="text" id="nickName" name="nickname" class="input" />
-				</div>
-				<div class="element">
-					<p class="elementName">
-						个人签名:
-					</p>
-					<input type="text" id="signature" name="signature" class="input" />
-				</div>
-				<div class="element">
-					<p class="elementName">
-						性&emsp;&emsp; 别:
-					</p>
-					<span>
-						<input type="radio" id="male" name="sex" value="男"
-						class="sex" />
-						<label for="male" id="maleLabel"
-						onclick="changesex(this.id)">男</label>
-						<input type="radio"
-						id="female" name="sex" value="女" class="sex" />
-						<label
-						for="female" id="femaleLabel" onclick="changesex(this.id)">女</label> </span>
-				</div>
-				<input type="hidden" id="user_id" name="user_id" value="" />
-
-				<button type="button" id="complete" onclick="complete_submit(this)">
-					完&emsp; 成
-				</button>
-				<button type="button" id="more"
-				onclick="window.location.href='moreinfo.html'+window.location.search;">
-					更&emsp; 多
-				</button>
-			</form>
-
-			<div>
-				<iframe frameborder="0" id="result" style="width:80%;display:none;" >
-
-				</iframe>
-			</div>
+			doc.open();
+			doc.writeln(data);
+			doc.close();
+		});
+	}
+</script>
+</head>
+<body>
+	<div id="mainDiv" data-role="page">
+		<div id="headerDiv" data-role="header" data-theme="f">
+		<a data-role="button" data-icon="back" data-rel="back" data-theme="e">返回</a>
+			<h1 id="header">基本信息编辑</h1>
 		</div>
-	</body>
+
+		<div data-role="content" id="content">
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<label for="nickName" class="elementName">昵&emsp; 称:</label>
+				</div>
+				<div class="ui-block-b">
+					<div class="bgd_input">
+						<input type="text" id="nickName" name="nickname" data-role="none"
+							class="input" autocorrect="off" autocapitalize="off" />
+					</div>
+				</div>
+			</div>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<label for="signature" class="elementName">个人签名:</label>
+				</div>
+				<div class="ui-block-b">
+					<div class="bgd_input">
+						<input type="text" data-role="none" id="signature"
+							name="signature" class="input" autocorrect="off"
+							autocapitalize="off" />
+					</div>
+				</div>
+			</div>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<label class="elementName">性&emsp; 别:</label>
+				</div>
+				<div class="ui-block-b">
+					<div data-role="controlgroup" data-type="horizontal"
+						style="margin: 0">
+						<button data-role="none" id="male" class="radiobtn bgd_radiobtn_l"
+							onclick="changesex('male')">男</button>
+						<button data-role="none" id="female"
+							class="radiobtn bgd_radiobtn_r" onclick="changesex('female')">女</button>
+					</div>
+				</div>
+
+			</div>
+			<input type="hidden" id="user_id" name="user_id" value="" />
+
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<button id="complete" data-role="none" class="button midbtn checked" onclick="complete_submit(this)">
+						完&emsp; 成</button>
+				</div>
+				<div class="ui-block-b">
+					<button id="more" data-role="none" class="button midbtn"
+						onclick="window.location.href='moreinfo.html'+window.location.search;">
+						更&emsp; 多</button>
+				</div>
+			</div>
+
+		</div>
+
+		<div>
+			<iframe frameborder="0" id="result"
+				style="width: 80%; display: none;"> </iframe>
+		</div>
+	</div>
+</body>
 </html>
