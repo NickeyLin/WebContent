@@ -95,7 +95,9 @@ body #mainDiv {
     background-position: 50% 50%;
     border: none;
 }
-
+#scaleButtons button:active{
+	background-color: #DDDDDD;
+}
 .progress {
     position: relative;
     margin-top: 10px;

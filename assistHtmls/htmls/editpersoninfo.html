@@ -140,16 +140,17 @@
 			var isLogin;
 			var notLoginError;
 
-			window.onload = function() {
-				document.getElementById("user_id").value = queryString["user_id"];
-
+			window.onload = function() {				
 				setHeight();
-				loadUserInfo();
 			};
 			window.onresize = function() {
 				setHeight();
 			};
-
+			
+			window.onpageshow = function(){
+				document.getElementById("user_id").value = queryString["user_id"];
+				loadUserInfo();
+			};
 			function loadUserInfo() {
 				var xmlhttp;
 				var url;
@@ -230,7 +231,8 @@
 					return;
 				};
 				$.post("modifyinfo", {
-					nickName : $("#nickName").val(),
+					user_id : $("#user_id").val(),
+					nickname : $("#nickName").val(),
 					signature : $("#signature").val(),
 					sex : $("input[name='sex']:checked").val()
 				}).always(function(data) {

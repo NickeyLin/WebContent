@@ -30,6 +30,8 @@ var image; // 画布，图片----js对象
 var mpImg; // MegaPixImage对象
 var uploadReq;// 头像上传ajax对象
 
+var boolTinyImage = true; // 图片太小提示
+
 function configImageView(isNeedToCenter) {
 
 	if (image.width < preWidth) {
@@ -60,8 +62,9 @@ function configImageView(isNeedToCenter) {
 		drawBlock(blockX, blockY, blockSize);
 	}
 
-	if (image.width < 105 || image.height < 105) {
-		alert("图片的宽或高小于规定的最小值，会导致无法截取图片，你可以先试试放大图片或缩小截图框，如果仍然小于规定的值，请更换大一点的图片。");
+	if ((image.width < 105 || image.height < 105) && boolTinyImage) {
+		boolTinyImage = false;
+		alert("图片的宽或高小于规定的最小值，可能会导致无法正确截取图片，你可以先试试放大图片或缩小截图框，如果仍然小于规定的值，请更换大一点的图片。");
 		return;
 	}
 }
@@ -71,11 +74,17 @@ window.onload = function() {
 	image = document.getElementById("image");
 	var previewImage = document.getElementById("previewImage");
 	var content = $(".content");
-	var contentHeight = window.screen.availHeight - 100;
+	var contentHeight = content.height();
+//	var contentHeight = window.screen.availHeight - 100;
 	content.height(contentHeight + "px");
-	
+
 	preWidth = parseInt(content.css("width"));
 	preHeight = contentHeight * 0.7;
+	if (preWidth < preHeight) {
+		preHeight = preWidth;
+	} else {
+		preWidth = preHeight;
+	}
 	previewImage.style.height = preHeight + "px";
 	previewImage.style.width = preWidth + "px";
 
@@ -83,6 +92,10 @@ window.onload = function() {
 	canvas.setAttribute("height", preHeight);
 	image.setAttribute("width", preWidth);
 	image.setAttribute("height", preHeight);
+
+	$("#canvas").css("left", $("#previewImage").css("margin-left"));
+	$("#scaleButtons").css("margin-left", $("#canvas").css("left"));
+	$("#scaleButtons").css("width", preWidth + "px");
 
 	canvas.addEventListener('touchstart', onTouchStart, false);
 	canvas.addEventListener('touchmove', onTouchMove, false);
@@ -98,6 +111,8 @@ window.onresize = function() {
 	var left = (preWidth - canvas.width) / 2
 			+ parseInt(previewImage.css("margin-left")) + "px";
 	canvas.style.left = left;
+	$("#scaleButtons").css("margin-left", $("#canvas").css("left"));
+
 };
 
 /**
@@ -136,11 +151,13 @@ function selectedFile(sender) {
 		mpImg = new MegaPixImage(file);
 
 		mpImg.render(image, {
+			minWidth : preWidth,
+			minHeight : preHeight,
 			maxWidth : maxWidth,
 			maxHeight : maxWidth,
 			orientation : ori
 		});
-
+		boolTinyImage = true;
 		mpImg.onrender = function() {
 			configImageView(true);
 		};
@@ -153,11 +170,13 @@ function selectedFile(sender) {
 };
 
 function zoomOut(e) { // 缩小
-	if (maxWidth > 300) {
+	if (maxWidth > 200) {
 		maxWidth -= 100;
 		maxHeight -= 100;
 	}
 	mpImg.render(image, {
+		minWidth : preWidth,
+		minHeight : preHeight,
 		maxWidth : maxWidth,
 		maxHeight : maxHeight,
 		orientation : ori
@@ -171,6 +190,8 @@ function zoomIn(e) { // 放大
 		maxHeight += 100;
 	}
 	mpImg.render(image, {
+		minWidth : preWidth,
+		minHeight : preHeight,
 		maxWidth : maxWidth,
 		maxHeight : maxHeight,
 		orientation : ori
@@ -192,8 +213,10 @@ function rotate(e) { // 旋转
 		ori = 1;
 	}
 	mpImg.render(image, {
-		maxWidth : maxWidth,
-		maxHeight : maxHeight,
+		minHeight : preWidth,
+		minWidth : preHeight,
+		maxHeight : maxWidth,
+		maxWidth : maxHeight,
 		orientation : ori
 	});
 	configImageView(true);
@@ -211,11 +234,12 @@ function clip(e) {
 		var left = (preWidth - blockSize) / 2
 				+ parseInt(previewImage.css("margin-left")) + "px";
 		var top = (preHeight - blockSize) / 2 + "px";
+		context.save();
 
+		context.clearRect(0, 0, canvas.width, canvas.height);
 		canvas.setAttribute("width", blockSize);
 		canvas.setAttribute("height", blockSize);
 
-		context.save();
 		context.drawImage(clipedImage, x, y, blockSize, blockSize, 0, 0,
 				blockSize, blockSize);
 		context.restore();
@@ -232,6 +256,19 @@ function clip(e) {
 }
 
 /**
+ * 清空画布 There is a bug on Android stock browser from Android 4.0. It is the
+ * clearRect method of canvas will not work on Android stock browser of any
+ * Android 4 devices.
+ * 
+ * @param canvas
+ */
+function clearCanvas(canvas) {
+	canvas.style.opacity = 0.99;
+	setTimeout(function() {
+		canvas.style.opacity = 1;
+	}, 1);
+}
+/**
  * 重置画布
  * 
  * @param e
@@ -245,9 +282,11 @@ function resetCanvas(e) {
 	image.style.display = "block";
 	canvas.setAttribute("width", preWidth);
 	canvas.setAttribute("height", preHeight);
-	canvas.style.left = 0;
+	$("#canvas").css("left", $("#previewImage").css("margin-left"));
 	canvas.style.top = 0;
+	canvas.getContext("2d").save();
 	canvas.getContext("2d").clearRect(0, 0, preWidth, preWidth);
+	canvas.getContext("2d").restore();
 	drawBlock(blockX, blockY, blockSize);
 
 	document.getElementById("file").style.display = "block"; // 显示选择文件按钮
@@ -329,7 +368,6 @@ function upload(e) {
 				bar.width(percentValue);
 				status.html("上传失败");
 
-
 				var iframe = document.getElementById("result");
 				var doc = iframe.document;
 				if (iframe.contentDocument)
@@ -360,6 +398,7 @@ function drawBlock(x, y, size) {
 	var n = width - x - size;
 
 	var context = canvas.getContext("2d");
+
 	context.clearRect(0, 0, width, height);
 	context.save();
 	context.beginPath();

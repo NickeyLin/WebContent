@@ -4,7 +4,7 @@
 		<title>更换头像</title>
 		<meta charset="utf-8">
 		<meta name="viewport"
-		content="initial-scale=0.9, minimum-scale=0.9, maximum-scale=0.9, user-scalable=no" />
+		content="initial-scale=0.9, minimum-scale=0.9, maximum-scale=0.9, user-scalable=no, width=device-width, height=device-height" />
 
 		<meta name="format-detection" content="telephone=no">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -35,7 +35,7 @@
 						your browser does not support the canvas tag
 					</canvas>
 				</div>
-				<canvas id="canvas" style="position:absolute;left:0;top:0;">
+				<canvas id="canvas" style="position:absolute;left:0;top:0;border: #eeeeee solid 1px;">
 					your browser does not support the canvas tag
 				</canvas>
 				<div id="scaleButtons" style="display:none;">
@@ -48,7 +48,7 @@
 				<div id="form" style="position: absolute;width: 100%;">
 					<div>
 						<div class="inputFile">
-							<input id="file" type="file" accept="image/*" name="file" onchange="selectedFile(this)" style="height:30px;z-index:1;"/>
+							<input id="file" type="file" accept="image/*" name="file" onchange="selectedFile(this)" style="height:30px;z-index:1;margin:auto;"/>
 						</div>
 					</div>
 				</div>

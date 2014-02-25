@@ -18,7 +18,7 @@
 	function detectSubsampling(img) {
 		var iw = img.naturalWidth, ih = img.naturalHeight;
 		if (iw * ih > 1024 * 1024) { // subsampling may happen over megapixel
-										// image
+			// image
 			var canvas = document.createElement('canvas');
 			canvas.width = canvas.height = 1;
 			var ctx = canvas.getContext('2d');
@@ -75,16 +75,21 @@
 	 */
 	function renderImageToCanvas(img, canvas, options, doSquash) {
 		var iw = img.naturalWidth, ih = img.naturalHeight;
-		var width = options.width, height = options.height;
+		var width = options.width, height = options.height, minWidth = options.minWidth, minHeight = options.minHeight;
 		var ctx = canvas.getContext('2d');
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.save();
-		transformCoordinate(canvas, width, height, options.orientation);
+		transformCoordinate(canvas, width, height, minWidth, minHeight,
+				options.orientation);
 		var subsampled = detectSubsampling(img);
 		if (subsampled) {
 			iw /= 2;
 			ih /= 2;
 		}
+
 		var d = 1024; // size of tiling canvas
+
 		var tmpCanvas = document.createElement('canvas');
 		tmpCanvas.width = tmpCanvas.height = d;
 		var tmpCtx = tmpCanvas.getContext('2d');
@@ -92,10 +97,21 @@
 		var dw = Math.ceil(d * width / iw);
 		var dh = Math.ceil(d * height / ih / vertSquashRatio);
 		var sy = 0;
+
 		var dy = 0;
+		var dx = 0;
+		if (options.orientation >= 5 && options.orientation <= 8) {
+			dy = (canvas.width - height) / 2;
+		} else {
+			dy = (canvas.height - height) / 2;
+		}
 		while (sy < ih) {
 			var sx = 0;
-			var dx = 0;
+			if (options.orientation >= 5 && options.orientation <= 8) {
+				dx = (canvas.height - width) / 2;
+			} else {
+				dx = (canvas.width - width) / 2;
+			}
 			while (sx < iw) {
 				tmpCtx.clearRect(0, 0, d, d);
 				tmpCtx.drawImage(img, -sx, -sy);
@@ -106,6 +122,7 @@
 			sy += d;
 			dy += dh;
 		}
+
 		ctx.restore();
 		tmpCanvas = tmpCtx = null;
 	}
@@ -114,7 +131,10 @@
 	 * Transform canvas coordination according to specified frame size and
 	 * orientation Orientation value is from EXIF tag
 	 */
-	function transformCoordinate(canvas, width, height, orientation) {
+	function transformCoordinate(canvas, width, height, minWidth, minHeight,
+			orientation) {
+		width = width < minWidth ? minWidth : width;
+		height = height < minHeight ? minHeight : height;
 		switch (orientation) {
 		case 5:
 		case 6:
@@ -122,6 +142,7 @@
 		case 8:
 			canvas.width = height;
 			canvas.height = width;
+
 			break;
 		default:
 			canvas.width = width;
@@ -192,7 +213,7 @@
 				var listeners = _this.imageLoadListeners;
 				if (listeners) {
 					_this.imageLoadListeners = null;
-					for ( var i = 0, len = listeners.length; i < len; i++) {
+					for (var i = 0, len = listeners.length; i < len; i++) {
 						listeners[i]();
 					}
 				}
