@@ -8,126 +8,27 @@
 		<meta name="format-detection" content="telephone=no">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<style type="text/css">
-			body #mainDiv {
-				height: 100%;
-				width: 100%;
-			}
-
-			#headerDiv {
-				position: relative;
-				line-height: 35px;
-				width: 100%;
-				height: 50px;
-				background: url(png/title.png) no-repeat;
-				background-size: cover;
-				background-position: 50% 50%;
-			}
-			#header {
-				text-align: center;
-				padding-top: 10px;
-				margin: 0 5px 20px 5px;
-				font-family: "微软雅黑";
-				font-size: 18px;
-				color: #FFFFFF;
-			}
-
-			.element {
-				position: relative;
-				margin: 20px auto;
-				height: 30px;
-				width: 90%;
-			}
-
 			.elementName {
 				position: relative;
-				float: left;
 				font-family: "微软雅黑";
 				font-size: 18px;
 				padding-top: 7px;
 				padding-bottom: 0;
-				margin: auto auto;
+				margin: auto;
 				width: 90px;
 				height: 30px;
 				left: 2%;
 				text-align: center;
 				color: #0066FF;
 			}
-
-			.element .input {
-				position: relative;
-				margin: 0 auto;
-				line-height: 30px;
-				left: 5px;
-				width: 55%;
-				height: 30px;
-				font-size: 16px;
-				padding-left: 10px;
-				background: url(../png/input.png) no-repeat;
-				border: none;
-				background-size: 100% 30px;
-			}
-
-			#mainDiv form #submit {
-				position: relative;
-				margin: 5px auto;
-				width: 55%;
-				padding: 5px 10px;
-				height: 40px;
-				font-family: "微软雅黑";
-				font-size: 16px;
-				border: none;
-				background: url(png/button1.png) no-repeat;
-				background-size: 100% 40px;
-			}
-
-			#mainDiv form #submit:active {
-				border: none;
-				background: url(png/button.png) no-repeat 0px -2px;
-				background-size: 100% 40px;
-				color: #FFFFFF;
-			}
-			@media screen and (min-width: 500px) {
-				.element {
-					position: relative;
-					margin: 10px 10px;
-					height: 30px;
-					width: 45%;
-					float: left;
-				}
-
-				.elementName {
-					position: relative;
-					float: left;
-					font-family: "微软雅黑";
-					font-size: 18px;
-					padding-top: 5px;
-					padding-bottom: 0;
-					margin: auto auto;
-					width: 90px;
-					height: 30px;
-					left: 2%;
-					text-align: center;
-					color: #0066FF;
-				}
-
-				.element .input {
-					position: relative;
-					margin: 0 auto;
-					line-height: 25px;
-					left: -1%;
-					width: 55%;
-					height: 100%;
-					font-size: 14px;
-					background: url(png/input.png) no-repeat;
-					border: none;
-					background-size: 100% 25px;
-					background-position: 50%;
-				}
-			}
 		</style>
-		<link rel=styleSheet type="text/css" href="../css/common.css" />
-		<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" href="../css/jquery.mobile-1.4.1.css" />
+		<link rel="stylesheet" href="../css/jquery.mobile.theme-1.4.1.css" />
+		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/jquery.mobile-1.4.1.js"></script>
+		<script src="../js/util.js"></script>
 		<script type="text/javascript" src="../js/util.js"></script>
+		<link rel=styleSheet type="text/css" href="../css/common.css" />
 
 		<script type="text/javascript" charset="utf-8">
 			window.onload = function() {
@@ -145,7 +46,7 @@
 			var isEmailValid = true;
 			var isQQValid = true;
 			var isBirValid = true;
-			
+
 			function loadUserInfo() {
 				var xmlhttp;
 				if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -191,6 +92,9 @@
 					if (e.value.length > 0 && !email.test(e.value)) {
 						isEmailValid = false;
 						document.getElementById("emailTip").style.display = "block";
+						document.getElementById("qqTip").style.display = "block";
+						document.getElementById("qqTip").style.visibility = "hidden";
+
 					} else {
 						isEmailValid = true;
 						document.getElementById("emailTip").style.display = "none";
@@ -200,6 +104,8 @@
 					if (e.value.length > 0 && !qq.test(e.value)) {
 						isQQValid = false;
 						document.getElementById("qqTip").style.display = "block";
+						document.getElementById("qqTip").style.visibility = "visible";
+
 					} else {
 						isQQValid = true;
 						document.getElementById("qqTip").style.display = "none";
@@ -236,6 +142,11 @@
 				}).always(function(data) {
 					if (null == data) {
 						alert("请求发送失败，请检查你的网络是否正常。");
+						return;
+					}
+					if (0 == data.status){
+						alert("未找到服务，请检查你手机与电视是否在同一个局域网内。")
+						return;
 					}
 					var iframe = document.getElementById("result");
 					var doc = iframe.document;
@@ -247,7 +158,11 @@
 					// For IE5.5 and IE6
 
 					doc.open();
-					doc.writeln(data);
+					if (data.responseText) {
+						doc.writeln(data.responseText);
+					} else {
+						doc.writeln(data);
+					}
 					doc.close();
 				});
 			}
@@ -255,145 +170,177 @@
 
 	</head>
 	<body>
-		<div id="mainDiv" style="-moz-user-select:-moz-none;" onselectstart="return false;">
-			<div id="headerDiv">
-				<p id="header">
-					详细信息编辑
-				</p>
+		<div id="mainDiv" data-role="page" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+			<div id="headerDiv" data-role="header" data-theme="f">
+				<a data-role="button" data-rel="back" data-theme="e">返回</a>
+				<h1> 详细信息编辑 </h1>
 			</div>
 			<form action="infomore" method="post" autocomplete="off" onsubmit="return false;" target="result">
-				<div class="element">
-					<p class="elementName">
-						真实姓名:
-					</p>
-					<span>
-						<input type="text" id="realname" name="realname" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="realname" class="elementName"> 真实姓名: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="realname" data-role="none" name="realname" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						生&emsp;&nbsp;&nbsp; 日:
-					</p>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="birthday" class="elementName"> 生&emsp;&nbsp;&nbsp; 日: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="date" id="birthday" name="birthday" data-role="none" onchange="didEndInput(this)" class="input"/>
+						</div>
+					</div>
 					<span>
-						<input type="date" id="birthday" name="birthday" onchange="didEndInput(this)" class="input"/>
 						<p id="birthdayTip" class="tips" style="display:none;">
 							请输入有效的日期(格式"yyyy-MM-dd")
 						</p> </span>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						邮&emsp;&nbsp;&nbsp; 箱:
-					</p>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="email" class="elementName"> 邮&emsp;&nbsp;&nbsp; 箱: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="email" id="email" name="email" data-role="none" class="input" onblur="didEndInput(this)"/>
+						</div>
+					</div>
 					<span>
-						<input type="email" id="email" name="email" class="input" onblur="didEndInput(this)"/>
 						<p id="emailTip" class="tips">
 							您输入的邮箱有误
 						</p> </span>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						Q&nbsp; Q:
-					</p>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="QQ" class="elementName"> Q&emsp;&nbsp;&nbsp; Q: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="tel" id="QQ" name="QQ" data-role='none' class="input" oninput="return didEndInput(this)"/>
+						</div>
+					</div>
 					<span>
-						<input type="tel" id="QQ" name="QQ" class="input" oninput="return didEndInput(this)"/>
 						<p id="qqTip" class="tips">
 							您输入的QQ有误
 						</p> </span>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						微博账号:
-					</p>
-					<span>
-						<input type="text" id="weibo" name="weibo" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="weibo" class="elementName"> 微博账号: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="weibo" data-role="none" name="weibo" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						微&emsp;&nbsp;&nbsp; 信:
-					</p>
-					<span>
-						<input type="text" id="wechat" name="wechat" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="wechat" class="elementName"> 微&emsp;&nbsp;&nbsp; 信: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="wechat" data-role="none" name="wechat" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						现所在地:
-					</p>
-					<span>
-						<input type="text" id="location" name="location" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="location" class="elementName"> 现所在地: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="location" data-role="none" name="location" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						血&emsp;&nbsp;&nbsp; 型:
-					</p>
-					<span> <!-- <input type="text" id="blood" name="blood" class="input"/> -->
-						<select id="blood" name="blood" class="input">
-							<option></option>
-							<option>A</option>
-							<option>B</option>
-							<option>AB</option>
-							<option>O</option>
-						</select> </span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label class="elementName"> 血&emsp;&nbsp;&nbsp; 型: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<select id="blood" name="blood" data-role="none" class="select">
+								<option></option>
+								<option>A</option>
+								<option>B</option>
+								<option>AB</option>
+								<option>O</option>
+							</select>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						毕业学校:
-					</p>
-					<span>
-						<input type="text" id="school" name="school" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="school" class="elementName"> 毕业学校: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="school" data-role="none" name="school" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						专&emsp;&nbsp;&nbsp; 业:
-					</p>
-					<span>
-						<input type="text" id="specialty" name="specialty" class="input"/>
-					</span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="specialty" class="elementName"> 专&emsp;&nbsp;&nbsp; 业: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<input type="text" id="specialty" data-role='none' name="specialty" class="input"/>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						星&emsp;&nbsp;&nbsp; 座:
-					</p>
-					<span> <!-- <input type="text" id="constellation" name="constellation" class="input"/> -->
-						<select id="constellation" name="constellation" class="input">
-							<option></option>
-							<option>白羊座</option>
-							<option>金牛座</option>
-							<option>双子座</option>
-							<option>巨蟹座</option>
-							<option>狮子座</option>
-							<option>处女座</option>
-							<option>天秤座</option>
-							<option>天蝎座</option>
-							<option>人马座</option>
-							<option>摩羯座</option>
-							<option>水瓶座</option>
-							<option>双鱼座</option>
-						</select> </span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="constellation" class="elementName"> 星&emsp;&nbsp;&nbsp; 座: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<select id="constellation" data-role="none" name="constellation" class="select">
+								<option></option>
+								<option>白羊座</option>
+								<option>金牛座</option>
+								<option>双子座</option>
+								<option>巨蟹座</option>
+								<option>狮子座</option>
+								<option>处女座</option>
+								<option>天秤座</option>
+								<option>天蝎座</option>
+								<option>人马座</option>
+								<option>摩羯座</option>
+								<option>水瓶座</option>
+								<option>双鱼座</option>
+							</select>
+						</div>
+					</div>
 				</div>
-				<div class="element">
-					<p class="elementName">
-						属&emsp;&nbsp;&nbsp; 相:
-					</p>
-					<span> <!-- <input type="text" id="zodiac" name="zodiac" class="input"/> -->
-						<select id="zodiac" name="zodiac" class="input">
-							<option></option>
-							<option>鼠</option>
-							<option>牛</option>
-							<option>虎</option>
-							<option>兔</option>
-							<option>龙</option>
-							<option>蛇</option>
-							<option>马</option>
-							<option>羊</option>
-							<option>猴</option>
-							<option>鸡</option>
-							<option>狗</option>
-							<option>猪</option>
-						</select> </span>
+				<div class="ui-grid-d">
+					<div class="ui-block-a">
+						<label for="zodiac" class="elementName"> 属&emsp;&nbsp;&nbsp; 相: </label>
+					</div>
+					<div class="ui-block-b">
+						<div class="bgd_input">
+							<select id="zodiac" name="zodiac" data-role='none' class="select">
+								<option></option>
+								<option>鼠</option>
+								<option>牛</option>
+								<option>虎</option>
+								<option>兔</option>
+								<option>龙</option>
+								<option>蛇</option>
+								<option>马</option>
+								<option>羊</option>
+								<option>猴</option>
+								<option>鸡</option>
+								<option>狗</option>
+								<option>猪</option>
+							</select>
+						</div>
+					</div>
 				</div>
 
 				<input type="hidden" id="user_id" name="user_id" />
@@ -401,7 +348,7 @@
 				<p id="atip" class="tips" style="display:block;">
 
 				</p>
-				<button id="submit" onclick="complete_submit()">
+				<button id="submit" data-role="none" class="button longbtn" onclick="complete_submit()">
 					完&emsp;&emsp; 成
 				</button>
 			</form>

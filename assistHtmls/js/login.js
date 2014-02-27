@@ -24,6 +24,11 @@ function login_submit() {
 	}).always(function(data) {
 		if (null == data) {
 			alert("请求发送失败，请检查你的网络是否正常。");
+			return;
+		}
+		if (0 == data.status){
+			alert("未找到服务，请检查你手机与电视是否在同一个局域网内。")
+			return;
 		}
 		var iframe = document.getElementById("result");
 		var doc = iframe.document;
@@ -35,7 +40,11 @@ function login_submit() {
 		// For IE5.5 and IE6
 
 		doc.open();
-		doc.writeln(data);
+		if(data.responseText){
+			doc.writeln(data.responseText);
+		}else{
+			doc.writeln(data);
+		}
 		doc.close();
 	});
 }
@@ -193,6 +202,11 @@ function complete_submit() {
 	}).always(function(data) {
 		if (null == data) {
 			alert("请求发送失败，请检查你的网络是否正常。");
+			return;
+		}
+		if (0 == data.status){
+			alert("未找到服务，请检查你手机与电视是否在同一个局域网内。")
+			return;
 		}
 		var iframe = document.getElementById("result");
 		var doc = iframe.document;

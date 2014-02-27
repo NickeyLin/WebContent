@@ -75,7 +75,7 @@ window.onload = function() {
 	var previewImage = document.getElementById("previewImage");
 	var content = $(".content");
 	var contentHeight = content.height();
-//	var contentHeight = window.screen.availHeight - 100;
+
 	content.height(contentHeight + "px");
 
 	preWidth = parseInt(content.css("width"));
@@ -92,7 +92,7 @@ window.onload = function() {
 	canvas.setAttribute("height", preHeight);
 	image.setAttribute("width", preWidth);
 	image.setAttribute("height", preHeight);
-
+	
 	$("#canvas").css("left", $("#previewImage").css("margin-left"));
 	$("#scaleButtons").css("margin-left", $("#canvas").css("left"));
 	$("#scaleButtons").css("width", preWidth + "px");
@@ -112,7 +112,6 @@ window.onresize = function() {
 			+ parseInt(previewImage.css("margin-left")) + "px";
 	canvas.style.left = left;
 	$("#scaleButtons").css("margin-left", $("#canvas").css("left"));
-
 };
 
 /**
@@ -252,6 +251,7 @@ function clip(e) {
 
 		document.getElementById("file").style.display = "none"; // 隐藏选择文件按钮
 		clipDone = true;
+		$('html,body').animate({scrollTop: 200},'slow');
 	};
 }
 
@@ -283,6 +283,8 @@ function resetCanvas(e) {
 	canvas.setAttribute("width", preWidth);
 	canvas.setAttribute("height", preHeight);
 	$("#canvas").css("left", $("#previewImage").css("margin-left"));
+	$("#scaleButtons").css("margin-left", $("#canvas").css("left"));
+
 	canvas.style.top = 0;
 	canvas.getContext("2d").save();
 	canvas.getContext("2d").clearRect(0, 0, preWidth, preWidth);
@@ -299,6 +301,7 @@ function resetCanvas(e) {
 	percent.html(0);
 	status.html("");
 	clipDone = false;
+	$('html,body').animate({scrollTop: 40},'slow');
 }
 
 /**
@@ -329,7 +332,8 @@ function upload(e) {
 			return;
 		}
 	}
-
+	
+	status.css('color', 'black');
 	uploadReq = $.ajax({
 		xhr : function() {
 			var req = $.ajaxSettings.xhr();
@@ -366,8 +370,9 @@ function upload(e) {
 				var percentValue = "0%";
 				$('.percent').html(percentValue);
 				bar.width(percentValue);
-				status.html("上传失败");
-
+				status.html("上传失败--400");
+				status.css('clolor', 'red');
+				
 				var iframe = document.getElementById("result");
 				var doc = iframe.document;
 				if (iframe.contentDocument)
@@ -379,6 +384,12 @@ function upload(e) {
 				doc.writeln(xhr.responseText);
 				doc.close();
 				// document.write(xhr.responseText);
+			} else if(xhr.status == 404){
+				var percentValue = "0%";
+				$('.percent').html(percentValue);
+				bar.width(percentValue);
+				status.html("上传失败:404 Not Found,请确认您手机与电视在同一个局域网。");
+				status.css("color", 'red');
 			}
 		}
 	});

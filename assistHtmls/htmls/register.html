@@ -11,10 +11,10 @@
 		<link rel="stylesheet" href="../css/jquery.mobile.theme-1.4.1.css" />
 		<script src="../js/jquery-1.10.2.min.js"></script>
 		<script src="../js/jquery.mobile-1.4.1.js"></script>
+		<script src="../js/util.js"></script>
 		<link rel=styleSheet type="text/css" href="../css/common.css" />
 		<script src="../js/login.js"></script>
 		<style type="text/css" >
-
 			.elementName {
 				float: left;
 				font-family: "微软雅黑";
@@ -34,7 +34,7 @@
 	<body>
 		<div data-role="page" id="pageregister">
 			<div id="headerDiv" data-role="header" data-theme="f">
-				<a data-role="button" href="login.html" data-theme="e" data-icon="home" data-mini="true" data-transition="slide" data-direction="reverse">登录</a>
+				<a data-role="button" href="login.html" onclick="javascript:location.replace(this.href);" data-theme="e" data-mini="true">登录</a>
 				<h1> 注 册 </h1>
 			</div>
 			<div data-role="content" id="content">
